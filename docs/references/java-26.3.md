@@ -91,7 +91,10 @@ and pitch ±89. These use explicit renderer API calls, not native pointer lock.
 Contact-sheet inspection found no swapped or inverted faces. Independent
 projection samples covered all six faces. Chromium and WebKit checks also
 confirmed nonblank snapshots, resize, context-loss hiding, and zero WebGL calls
-in phone emulation. Native macOS pointer lock remains unverified.
+in phone emulation. Later full Chromium headless tests verified native pointer
+lock, mouse movement, right-click release, recapture, and Escape to Game Menu.
+Playwright's headless-shell build rejects lock on this Mac. Native Safari and
+physical phone checks remain separate from this evidence.
 
 Review evidence remains outside the repository:
 
@@ -109,9 +112,9 @@ Review evidence remains outside the repository:
 - Native text input retains selection, copy/paste, undo/redo, and IME. Unicode
   outside the extracted bitmap providers uses browser fallback glyphs.
 - Settings are the agreed app subset, using original game controls.
-- Built-in backgrounds are online gameplay screenshots without baked-in HUD or
-  hand. They use centered cover fit. The original private capture is no longer
-  bundled. Background settings offer the panorama and four screenshot scenes.
+- All built-in backgrounds are full panoramas without baked-in HUD or hand.
+  Background settings offer Autumn Camp, Snowy Coast, Cherry Grove, and Sulfur
+  Caves. Custom uploads remain static. The original private capture is not bundled.
 - Backgrounds use IndexedDB records containing image bytes and MIME type. The
   first browser run reproduced WebKit's error preparing a Blob for storage.
   Storing bytes fixes the observed failure without changing data custody.

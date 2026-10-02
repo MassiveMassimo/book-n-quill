@@ -8,13 +8,21 @@ declare global {
 }
 
 async function options(page: Page) {
-  await page.getByRole('button', { name: 'Done', exact: true }).click();
+  // Escape closes the book without starting a pointer-lock request.
+  await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Options...', exact: true }).click();
 }
 async function openBook(page: Page) {
-  if (await page.evaluate(() => Boolean(document.pointerLockElement))) {
-    await page.mouse.click(720, 450, { button: 'right' });
+  if (
+    await page.evaluate(
+      () => matchMedia('(hover: hover) and (pointer: fine)').matches,
+    )
+  ) {
+    const viewport = page.viewportSize()!;
+    await page.mouse.click(viewport.width / 2, viewport.height / 2, {
+      button: 'right',
+    });
   } else {
     await page
       .getByRole('button', { name: 'Open Book and Quill', exact: true })

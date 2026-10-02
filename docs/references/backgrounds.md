@@ -1,29 +1,34 @@
-# Built-in background sources
+# Built-in panorama sources
 
-Selected and visually inspected on 2026-10-02. These are static gameplay images
-without baked-in HUD, crosshair, player hand, or watermarks. Files are unmodified
-local copies. The app uses centered cover fit and makes no remote image requests.
-The images are not claimed to be from Java 26.3; that version remains the GUI
-reference. These screenshots do not establish publication permission.
+Every built-in choice is a complete six-face panorama, without a baked-in HUD,
+crosshair, or player hand. Scene names were chosen after image inspection.
+Desktop uses mouse-look. Phones use an offline fixed perspective. Custom uploads
+remain static on every device. The former four screenshot choices were replaced.
 
-| Theme        | Local file                            | Resolution  | Source page                                                                                                                                                                   |
-| ------------ | ------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mountains    | `public/backgrounds/mountains.jpg`    | 2048 × 1152 | [Windows Central Minecraft reporting article](https://www.windowscentral.com/gaming/minecraft/saveminecraft-the-truth-and-controversy-behind-minecrafts-new-player-reporting) |
-| Cherry Grove | `public/backgrounds/cherry-grove.jpg` | 748 × 421   | [Mojang: Cherry Grove](https://www.minecraft.net/en-us/article/around-block--cherry-grove)                                                                                    |
-| Badlands     | `public/backgrounds/badlands.jpg`     | 748 × 421   | [Mojang: Badlands](https://www.minecraft.net/en-us/article/around-block--badlands)                                                                                            |
-| Village      | `public/backgrounds/plains.jpg`       | 748 × 421   | [Mojang: Plains](https://www.minecraft.net/en-us/article/around-block--plains)                                                                                                |
+| Scene                 | Source                                       | Product directory                  |
+| --------------------- | -------------------------------------------- | ---------------------------------- |
+| Autumn Camp (default) | Original Java 26.3, installed asset index 34 | `public/minecraft/panorama/`       |
+| Snowy Coast           | 1.21.11 vanilla variant                      | `public/backgrounds/snowy-coast/`  |
+| Cherry Grove          | 26.1 vanilla variant                         | `public/backgrounds/cherry-grove/` |
+| Sulfur Caves          | 26.2 vanilla variant                         | `public/backgrounds/sulfur-caves/` |
 
-The three Mojang article images have lower resolution than the mountain
-image. They retain the original article bytes rather than artificial upscaling.
+The online sets come from [Vanilla Panorama + assets](https://github.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets),
+pinned to commit `04907cea00baa1d6d62f5ffcae19ed862c42071f`. Only vanilla
+textures and no-shader variants were copied. All faces retain the original
+1024 × 1024 PNG bytes. Each set contains faces 0 through 5, including sky and ground.
 
-| File             | Direct source URL                                                                                            | SHA-256                                                            |
-| ---------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| mountains.jpg    | https://cdn.mos.cms.futurecdn.net/Dg5DwPErVMs36ar4YqGCcc.jpg                                                 | `9cfca1adb4a3c21943fb8dd540fd4f148d218ab0ee34ff20c0022121ffc95705` |
-| cherry-grove.jpg | https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/cherry-carousel2.jpg          | `14e60f60c25d8fe96cbc750477beab75df8a5feca62fe24a88a057a7edeb9e60` |
-| badlands.jpg     | https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/badlands-carousel2.jpg        | `ec07d323b419e16940ea085b9dd51427dc5c3ff9f2037a821d015bd399510ee4` |
-| plains.jpg       | https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/screenshots/plains-carousel%20%281%29.jpg | `99266f1abf11a6b9f05048af93ec1154dfbf2c262c4be3b3c3997b0a4a4f831e` |
+[panoramas.json](panoramas.json) records pinned URLs, Git blob hashes, SHA-256,
+versions, dimensions, and derived still images. Autumn Camp provenance is in
+[assets.json](assets.json). [fetch-panoramas.py](../../scripts/fetch-panoramas.py)
+reproduces the online sets. [extract-assets.py](../../scripts/extract-assets.py)
+reproduces Autumn Camp from the read-only game installation. Stills use an upright
+yaw/pitch of zero, a 70-degree vertical field of view, and a 1600 × 900 JPEG output.
 
-The previous local gameplay capture was removed from product assets. The game
-extraction script no longer copies it. Custom user uploads remain browser-only.
-Theme choices are stored in localStorage. Switching from Custom to a built-in
-theme preserves the uploaded image bytes; Restore Default removes them.
+The [resource-pack page](https://modrinth.com/resourcepack/vanilla-panorama-full)
+lists MIT, but the pinned asset repository has no license file. The manifest
+records that discrepancy. The mirror does not establish permission to
+redistribute Minecraft assets. Public-use review remains separate from this local change.
+
+All runtime assets are local. Themes persist in localStorage. Switching from
+Custom to a scene preserves the uploaded image bytes. Restore Default removes
+the custom image and selects Autumn Camp.

@@ -12,7 +12,6 @@ See [game asset provenance](docs/references/assets.json) for copied asset origin
 These assets are not covered by any license for this project's application code.
 Attribution does not grant redistribution rights. On 2026-10-02, the project owner
 authorized bundling them for the initial public release, pending a later review.
-Their publication terms remain unverified.
 
 The vendored anti-slop plugin retains its own license under
 `tools/oxlint/anti-slop/`. Do not apply its license to the game assets.

@@ -106,6 +106,9 @@ h2 {
   font-size: 8px;
   line-height: 9px;
 }
+#game[data-screen='scene'] #gui {
+  pointer-events: none;
+}
 
 .book-panel {
   position: absolute;
@@ -516,6 +519,9 @@ h2 {
   z-index: 3;
   pointer-events: none;
 }
+#game[data-screen='scene'] ~ #notice {
+  bottom: calc(60px * var(--gui-scale) + env(safe-area-inset-bottom));
+}
 noscript {
   position: fixed;
   inset: 20% 10%;
@@ -546,8 +552,11 @@ noscript {
   #game[data-screen='background'] #gui {
     height: 300px;
   }
-  #game[data-screen='scene'] #gui {
-    pointer-events: none;
+  #game[data-screen='options'] #gui {
+    height: 300px;
+  }
+  .asset-notice {
+    top: 245px;
   }
   /* Keep the computed input font at 16px to avoid automatic iOS page zoom. */
   #page-text {

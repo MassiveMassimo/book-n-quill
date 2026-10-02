@@ -115,15 +115,20 @@ let panoramaLoading = false;
 let lockPending = false;
 let lockLostAt = -Infinity;
 let suppressContextMenu = false;
-const panoramaSelected = () =>
-  !backgroundUrl && (settings.background ?? THEMES[0].id) === 'panorama';
+const panoramaSelected = () => !backgroundUrl;
+const selectedTheme = () =>
+  THEMES.find((theme) => theme.id === settings.background) ?? THEMES[0];
+const panoramaReady = () =>
+  panorama &&
+  panoramaCanvas.dataset.source === selectedTheme().panoramaDir &&
+  !panoramaCanvas.hidden;
 
 function captureMouse() {
   if (
     screen !== 'scene' ||
     !mouseInput.matches ||
     !panoramaSelected() ||
-    !panorama ||
+    !panoramaReady() ||
     !game.requestPointerLock ||
     lockPending ||
     document.pointerLockElement === game
@@ -206,6 +211,7 @@ function show(target: Screen, focus = true) {
   if (
     target === 'background' &&
     panoramaSelected() &&
+    panoramaReady() &&
     mouseInput.matches &&
     panorama
   ) {
@@ -429,8 +435,10 @@ function applyBackground(url?: string) {
 }
 function updatePanorama() {
   const active = panoramaSelected() && mouseInput.matches;
-  panoramaCanvas.hidden = !active || !panorama;
-  if (active && panorama) {
+  const source = selectedTheme().panoramaDir;
+  panoramaCanvas.hidden =
+    !active || !panorama || panoramaCanvas.dataset.source !== source;
+  if (active && panorama && panoramaReady()) {
     panorama.resize();
     if (screen === 'background')
       element('background-preview').querySelector('img')!.src =
@@ -438,18 +446,36 @@ function updatePanorama() {
   }
   if (!active && document.pointerLockElement === game)
     document.exitPointerLock();
-  if (active && !panorama && !panoramaLoading) {
+  if (active && !panoramaReady() && !panoramaLoading) {
     panoramaLoading = true;
-    void createPanorama(panoramaCanvas)
-      .then((result) => {
-        panorama = result;
+    void (async () => {
+      try {
+        panorama ??= await createPanorama(panoramaCanvas, source);
+        while (
+          panorama &&
+          panoramaSelected() &&
+          mouseInput.matches &&
+          panoramaCanvas.dataset.source !== selectedTheme().panoramaDir
+        ) {
+          await panorama.load(selectedTheme().panoramaDir);
+        }
+      } catch {
+        notify('Background could not be loaded. A still view is shown.');
+      } finally {
+        panoramaLoading = false;
         panoramaCanvas.hidden =
-          !result || !panoramaSelected() || !mouseInput.matches;
-        result?.resize();
-      })
-      .catch(() => {
-        panoramaCanvas.hidden = true;
-      });
+          !panorama ||
+          !panoramaSelected() ||
+          !mouseInput.matches ||
+          panoramaCanvas.dataset.source !== selectedTheme().panoramaDir;
+        if (!panoramaCanvas.hidden && panorama) {
+          panorama.resize();
+          if (screen === 'background')
+            element('background-preview').querySelector('img')!.src =
+              panorama.snapshot();
+        }
+      }
+    })();
   }
 }
 mouseInput.addEventListener('change', updatePanorama);

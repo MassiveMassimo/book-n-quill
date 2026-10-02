@@ -21,7 +21,7 @@ when an agent runs it. Use `bunx astro dev status` or
 
 - Write directly on the page. Committed edits save automatically.
 - Use the arrows or Page Up / Page Down to turn pages.
-- Done closes the book. In the desktop Panorama theme, the mouse controls the
+- Done closes the book. In every built-in desktop theme, the mouse controls the
   view. Right-click opens the same draft and restores the cursor. Escape releases
   the mouse and opens Game Menu. If capture is unavailable, use the first hotbar
   slot. Phones keep a fixed view and use the hotbar.
@@ -58,17 +58,15 @@ Chromium, WebKit, and an emulated iPhone. Install missing test browsers with
 
 ## Reference and limits
 
-Java 26.3 supplies the book, buttons, arrows, HUD, item sprites, bitmap font
-providers, UI sounds, and Sweden music track. The generated font contains 2,414
-original bitmap glyphs. Other Unicode characters use browser fallback fonts;
-their raw text is retained in saving and export. Native caret, selection, and
-undo follow browser behavior. No extra page-flip animation is added.
+Java 26.3 supplies the book, buttons, arrows, HUD, item sprites, font, UI sounds,
+and Sweden music track. Native caret, selection, and undo follow browser
+behavior. No extra page-flip animation is added.
 
-The default background is the full Java 26.3 panorama. Options → Background →
-Theme cycles Panorama, Mountains, Cherry Grove, Badlands, and Village.
-The panorama supports desktop mouse-look. The other themes and custom images
-stay static. Phones show a fixed view of every theme.
-These static images have no baked-in HUD, crosshair, or hand. Local copies avoid
+The default background is Autumn Camp, the full Java 26.3 panorama. Options →
+Background → Theme cycles Autumn Camp, Snowy Coast, Cherry Grove, and Sulfur
+Caves. Every built-in theme
+supports desktop mouse-look. Custom images stay static. Phones show a fixed
+view of every theme. The scenes have no baked-in HUD, crosshair, or hand. Local copies avoid
 remote requests from the app. The selected theme persists in browser settings.
 See [background sources](docs/references/backgrounds.md) for provenance.
 Small screens fit the same book and stack the same settings controls.

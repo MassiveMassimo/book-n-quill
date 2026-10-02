@@ -3,17 +3,28 @@ import { picklist } from 'valibot';
 export const THEMES = [
   {
     id: 'panorama',
-    name: 'Panorama',
+    name: 'Autumn Camp',
     src: '/minecraft/panorama/panorama-still.jpg',
+    panoramaDir: '/minecraft/panorama',
   },
-  { id: 'mountains', name: 'Mountains', src: '/backgrounds/mountains.jpg' },
+  {
+    id: 'snowy-coast',
+    name: 'Snowy Coast',
+    src: '/backgrounds/snowy-coast/still.jpg',
+    panoramaDir: '/backgrounds/snowy-coast',
+  },
   {
     id: 'cherry-grove',
     name: 'Cherry Grove',
-    src: '/backgrounds/cherry-grove.jpg',
+    src: '/backgrounds/cherry-grove/still.jpg',
+    panoramaDir: '/backgrounds/cherry-grove',
   },
-  { id: 'badlands', name: 'Badlands', src: '/backgrounds/badlands.jpg' },
-  { id: 'village', name: 'Village', src: '/backgrounds/plains.jpg' },
+  {
+    id: 'sulfur-caves',
+    name: 'Sulfur Caves',
+    src: '/backgrounds/sulfur-caves/still.jpg',
+    panoramaDir: '/backgrounds/sulfur-caves',
+  },
 ] as const;
 
 export type BackgroundChoice = (typeof THEMES)[number]['id'] | 'custom';

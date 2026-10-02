@@ -1,9 +1,13 @@
 /** Desktop only: the caller must use panorama/panorama-still.jpg on phones. */
-export async function createPanorama(canvas: HTMLCanvasElement): Promise<
+export async function createPanorama(
+  canvas: HTMLCanvasElement,
+  sourceDirectory = '/minecraft/panorama',
+): Promise<
   | {
       move(dx: number, dy: number): void;
       resize(): void;
       snapshot(): string;
+      load(sourceDirectory: string): Promise<void>;
     }
   | undefined
 > {
@@ -22,16 +26,6 @@ export async function createPanorama(canvas: HTMLCanvasElement): Promise<
   let texture: WebGLTexture | null = null;
   let buffer: WebGLBuffer | null = null;
   try {
-    // CubeMapTexture.SUFFIXES in Java 26.3: +X, -X, +Y, -Y, +Z, -Z.
-    const images = await Promise.all(
-      [1, 3, 5, 4, 0, 2].map(async (face) => {
-        const image = new Image();
-        image.src = `/minecraft/panorama/panorama_${face}.png`;
-        await image.decode();
-        return image;
-      }),
-    );
-    if (gl.isContextLost()) throw new Error('Panorama context lost');
     const compile = (type: number, source: string) => {
       const shader = gl.createShader(type);
       if (!shader) throw new Error('Panorama shader allocation failed');
@@ -91,16 +85,6 @@ export async function createPanorama(canvas: HTMLCanvasElement): Promise<
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
     gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-    images.forEach((image, face) =>
-      gl.texImage2D(
-        gl.TEXTURE_CUBE_MAP_POSITIVE_X + face,
-        0,
-        gl.RGB,
-        gl.RGB,
-        gl.UNSIGNED_BYTE,
-        image,
-      ),
-    );
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -135,8 +119,49 @@ export async function createPanorama(canvas: HTMLCanvasElement): Promise<
       }
       draw();
     };
+    const load = async (directory: string) => {
+      // CubeMapTexture.SUFFIXES in Java 26.3: +X, -X, +Y, -Y, +Z, -Z.
+      const images = await Promise.all(
+        [1, 3, 5, 4, 0, 2].map(async (face) => {
+          const image = new Image();
+          image.src = `${directory}/panorama_${face}.png`;
+          await image.decode();
+          return image;
+        }),
+      );
+      if (gl.isContextLost()) throw new Error('Panorama context lost');
+      const size = images[0]!.naturalWidth;
+      if (
+        !size ||
+        size > gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE) ||
+        images.some(
+          (image) =>
+            image.naturalWidth !== size || image.naturalHeight !== size,
+        )
+      )
+        throw new Error(
+          'Panorama faces must have equal supported square dimensions',
+        );
+      gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture);
+      images.forEach((image, face) =>
+        gl.texImage2D(
+          gl.TEXTURE_CUBE_MAP_POSITIVE_X + face,
+          0,
+          gl.RGB,
+          gl.RGB,
+          gl.UNSIGNED_BYTE,
+          image,
+        ),
+      );
+      yaw = 0;
+      pitch = 0;
+      draw();
+      canvas.dataset.source = directory;
+    };
+    await load(sourceDirectory);
     resize();
     return {
+      load,
       // Mouse deltas in CSS pixels; 0.15 degrees per pixel. Yaw wraps, pitch clamps.
       move(dx, dy) {
         if (!Number.isFinite(dx) || !Number.isFinite(dy)) return;

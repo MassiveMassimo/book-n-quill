@@ -119,7 +119,69 @@ The final boundary-tap test passed, and the independent phone reviewer confirmed
 that `(160, 294.43)` activates Theme rather than Choose Image at 320 × 568.
 The final complete browser suite passed again: 44 passed, 4 intentional skips.
 
-## Artifact hygiene
+## Desktop panorama and static phones — 2026-10-02
+
+The default theme now uses the six original Java 26.3 panorama faces. Source
+hashes and face order were verified against asset index 34 and the installed
+CubeMap classes. Native WebGL renders on demand. No dependency or remote service
+was added. The four screenshot themes and custom uploads remain static.
+
+The renderer was checked at yaw 0, 90, 180, and 270 degrees and pitch ±89 degrees.
+The six views match independently projected source samples. Desktop book artwork
+and geometry remain unchanged. Compact visual evidence is retained outside the
+repository at `/tmp/book-n-quill-panorama-20261002/contact-sheet.jpg` and
+`built-desktop-book.png` in that directory.
+
+The built-in browser could not connect to the preview. Playwright's headless shell
+rejects native pointer lock on this Mac with WrongDocumentError. Full Chromium
+in headless mode (`channel: chromium`) captures the mouse successfully. Panorama
+tests therefore use that executable. Failure tests separately exercise API denial
+and missing support. Physical phone testing and native Safari remain separate.
+
+The final complete browser suite passed: 52 passed and 20 intentional
+platform-specific skips. Full Chromium verified native mouse capture, movement,
+right-click reopening, browser lock loss, recapture, and Escape to Game Menu.
+Phone WebKit emulation verified a fixed background with no WebGL context or
+pointer-lock request. The existing six Bun unit tests passed. Type checking and
+the static build passed. A narrow-screen asset-notice overlap found during this
+run was fixed by moving the notice below the Options controls.
+
+## All built-in scenes are panoramas — 2026-10-02
+
+This change supersedes the earlier mixed panorama/screenshot choices. The theme
+cycle is now Autumn Camp (default), Snowy Coast, Cherry Grove, and Sulfur Caves.
+Every built-in supports desktop mouse-look. Custom images remain static. Phones
+use a fixed perspective of each selected scene and create no WebGL context.
+
+Three new six-face sets were copied from a pinned Vanilla Panorama + asset
+repository commit. Original 1024px PNG bytes and 21 output hashes were verified.
+Versions, pinned URLs, and license status are in `references/panoramas.json`.
+The four old built-in JPEG screenshots were removed from product assets.
+
+One WebGL context and cube texture are reused for theme switching. All six faces
+decode before upload. Loads are serialized, and the canvas is hidden until its
+source matches the latest selected theme. Failure keeps the still view usable.
+
+The final suite passed: 53 browser tests and 22 intentional platform-specific
+skips; 7 Bun unit tests. Type check, lint, formatting checks, and build passed.
+Full headless Chromium verified native mouse-look for every built-in, rapid theme
+cycling, right-click reopening, Escape, and static custom uploads. Phone WebKit
+verified every theme with no WebGL or pointer-lock calls. Chromium and WebKit
+verified selection persistence, preview decoding, and retained custom bytes.
+
+The built-in preview still timed out. Visual evidence uses headless browser
+captures. The inspected contact sheet is retained outside the repository at
+`/tmp/book-n-quill-all-panoramas-20261002/settings-contact-sheet.jpg`.
+Product assets are about 16 MB and the static build is about 18 MB. Review-only
+media stays outside the repository. No commit, push, or deployment was performed.
+
+## Earlier retained artifacts
+
+The panorama review keeps a contact sheet, desktop screenshot, and compact source
+and projection evidence outside the repository (about 0.9 MB). Six raw direction
+captures and the temporary renderer bundle were removed. Product assets are
+about 7.9 MB; the current static build is about 8.9 MB. Browser test output is
+removed after verification.
 
 Task-created test output and failure traces were removed after passing checks.
 Independent audit screenshots, measurements, and small comparison scripts remain

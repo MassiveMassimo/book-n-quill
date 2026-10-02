@@ -1,4 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
+import { mkdir } from 'node:fs/promises';
 
 type PanoramaObservation = {
   contexts: string[];
@@ -12,9 +13,27 @@ declare global {
 }
 
 const panoramaFace = '/minecraft/panorama/panorama-still.jpg';
+const scenes = [
+  { name: 'Autumn Camp', source: '/minecraft/panorama', still: panoramaFace },
+  {
+    name: 'Snowy Coast',
+    source: '/backgrounds/snowy-coast',
+    still: '/backgrounds/snowy-coast/still.jpg',
+  },
+  {
+    name: 'Cherry Grove',
+    source: '/backgrounds/cherry-grove',
+    still: '/backgrounds/cherry-grove/still.jpg',
+  },
+  {
+    name: 'Sulfur Caves',
+    source: '/backgrounds/sulfur-caves',
+    still: '/backgrounds/sulfur-caves/still.jpg',
+  },
+];
 
-// macOS headless-shell rejects native pointer lock with WrongDocumentError.
-// Full Chromium supports native lock with CDP focus emulation; no API is mocked.
+// Full Chromium headless supports native pointer lock on macOS; headless-shell does not.
+// Keep this launch choice local so the legacy suite still covers headless-shell fallback.
 test.use({
   launchOptions: async ({ browserName }, use) => {
     await use(browserName === 'chromium' ? { channel: 'chromium' } : {});
@@ -28,8 +47,12 @@ async function view(page: Page) {
   }));
 }
 
-async function ready(page: Page) {
+async function ready(page: Page, source = scenes[0]!.source) {
   await expect(page.locator('#panorama')).toBeVisible();
+  await expect(page.locator('#panorama')).toHaveAttribute(
+    'data-source',
+    source,
+  );
   await expect(page.locator('#panorama')).toHaveAttribute('data-yaw', /\d/);
   await expect(page.locator('#panorama')).toHaveAttribute('data-pitch', /\d/);
   const angles = await view(page);
@@ -42,6 +65,8 @@ async function expectLocked(page: Page) {
     .poll(() => page.evaluate(() => document.pointerLockElement?.id))
     .toBe('game');
   await expect(page.locator('#game')).toHaveAttribute('data-screen', 'scene');
+  // Native acquisition precedes the app's queued pointerlockchange handler.
+  await expect(page.locator('#game')).toHaveAttribute('data-looking', 'true');
 }
 
 test.describe('desktop panorama', () => {
@@ -50,13 +75,6 @@ test.describe('desktop panorama', () => {
     ({ browserName, isMobile }) => browserName !== 'chromium' || isMobile,
     'Real desktop Chromium pointer lock and its fallback paths.',
   );
-
-  test.beforeEach(async ({ page }) => {
-    await page.bringToFront();
-    const session = await page.context().newCDPSession(page);
-    await session.send('Page.bringToFront');
-    await session.send('Emulation.setFocusEmulationEnabled', { enabled: true });
-  });
 
   test('Done captures the mouse; movement looks around; right-click opens a frozen book', async ({
     page,
@@ -122,7 +140,125 @@ test.describe('desktop panorama', () => {
     await expect.poll(async () => (await view(page)).yaw).not.toBe(resumed.yaw);
   });
 
-  test('a screenshot theme hides the renderer and keeps ordinary hotbar interaction', async ({
+  test('Escape releases native pointer lock and opens Game Menu', async ({
+    page,
+  }) => {
+    await page.goto('/');
+    await ready(page);
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    await expectLocked(page);
+    await page.keyboard.press('Escape');
+    await expect
+      .poll(() => page.evaluate(() => document.pointerLockElement))
+      .toBeNull();
+    await expect(page.locator('#game')).toHaveAttribute('data-screen', 'menu');
+    await expect(
+      page.getByRole('heading', { name: 'Game Menu', exact: true }),
+    ).toBeVisible();
+  });
+
+  test('every built-in supports native mouse-look; rapid cycling keeps the latest selection', async ({
+    page,
+  }) => {
+    const reviewDirectory = '/tmp/book-n-quill-all-panoramas-20261002';
+    await mkdir(reviewDirectory, { recursive: true });
+    await page.goto('/');
+    await ready(page);
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    for (let index = 0; index < scenes.length; index += 1) {
+      const scene = scenes[index]!;
+      if (index > 0) {
+        await page.locator('#background-theme').click();
+        await expect(
+          page.getByRole('button', {
+            name: `Theme: ${scene.name}`,
+            exact: true,
+          }),
+        ).toBeEnabled();
+        await ready(page, scene.source);
+        await page
+          .locator('#background-panel')
+          .getByRole('button', { name: 'Done', exact: true })
+          .click();
+        await page
+          .locator('#options-panel')
+          .getByRole('button', { name: 'Done', exact: true })
+          .click();
+        await page
+          .getByRole('button', { name: 'Back to Game', exact: true })
+          .click();
+      }
+      await expectLocked(page);
+      await ready(page, scene.source);
+      await expect(page.locator('#background img')).toHaveAttribute(
+        'src',
+        scene.still,
+      );
+      const initial = await view(page);
+      await page.mouse.move(600, 400);
+      await page.mouse.move(760, 480, { steps: 3 });
+      await expect
+        .poll(async () => (await view(page)).yaw)
+        .not.toBe(initial.yaw);
+      await page.mouse.click(760, 480, { button: 'right' });
+      await expect(page.locator('#game')).toHaveAttribute(
+        'data-screen',
+        'book',
+      );
+      await expect
+        .poll(() => page.evaluate(() => document.pointerLockElement))
+        .toBeNull();
+      await page.keyboard.press('Escape');
+      await page.keyboard.press('Escape');
+      await page
+        .getByRole('button', { name: 'Options...', exact: true })
+        .click();
+      await page
+        .getByRole('button', { name: 'Background...', exact: true })
+        .click();
+      await expect
+        .poll(() =>
+          page.locator('#background-preview img').evaluate((image) => {
+            if (!(image instanceof HTMLImageElement))
+              throw new Error('Expected settings preview');
+            return image.complete && image.naturalWidth > 0;
+          }),
+        )
+        .toBe(true);
+      await page.screenshot({
+        path: `${reviewDirectory}/${scene.name.toLowerCase().replaceAll(' ', '-')}.png`,
+      });
+    }
+
+    // Hold the first load while two later selections arrive, then release it.
+    const gate = Promise.withResolvers<void>();
+    let heldFaces = 0;
+    const pattern = '**/minecraft/panorama/panorama_*.png';
+    await page.route(pattern, async (route) => {
+      heldFaces += 1;
+      await gate.promise;
+      await route.continue();
+    });
+    try {
+      await page.locator('#background-theme').click();
+      await expect.poll(() => heldFaces).toBeGreaterThan(0);
+      await page.locator('#background-theme').click();
+      await page.locator('#background-theme').click();
+      await expect(
+        page.getByRole('button', { name: 'Theme: Cherry Grove', exact: true }),
+      ).toBeEnabled();
+    } finally {
+      gate.resolve();
+    }
+    await ready(page, '/backgrounds/cherry-grove');
+    await expect(page.locator('#background img')).toHaveAttribute(
+      'src',
+      '/backgrounds/cherry-grove/still.jpg',
+    );
+    await page.unroute(pattern);
+  });
+
+  test('a custom upload hides the renderer, avoids lock, and keeps ordinary hotbar interaction', async ({
     page,
   }) => {
     await page.goto('/');
@@ -134,11 +270,14 @@ test.describe('desktop panorama', () => {
       .getByRole('button', { name: 'Background...', exact: true })
       .click();
     await page
-      .getByRole('button', { name: 'Theme: Panorama', exact: true })
-      .click();
+      .locator('#background-file')
+      .setInputFiles('public/minecraft/book.png');
+    await expect(
+      page.getByRole('button', { name: 'Theme: Custom', exact: true }),
+    ).toBeEnabled();
     await expect(page.locator('#background img')).toHaveAttribute(
       'src',
-      '/backgrounds/mountains.jpg',
+      /^blob:/,
     );
     await expect(page.locator('#panorama')).toBeHidden();
     await page
@@ -252,6 +391,21 @@ test.describe('desktop panorama', () => {
         await expect(page.getByRole('status')).toContainText(
           'Mouse-look unavailable',
         );
+        for (const viewport of [
+          { width: 1440, height: 900 },
+          { width: 719, height: 480 },
+          { width: 390, height: 664 },
+        ]) {
+          await page.setViewportSize(viewport);
+          await page.locator('#reopen').hover();
+          const notice = await page.getByRole('status').boundingBox();
+          for (const selector of ['.hotbar', '.item-name', '.tooltip']) {
+            const hud = await page.locator(selector).boundingBox();
+            expect(notice).not.toBeNull();
+            expect(hud).not.toBeNull();
+            expect(notice!.y + notice!.height).toBeLessThan(hud!.y);
+          }
+        }
       }
       await expect(page.locator('#background img')).toHaveAttribute(
         'src',
@@ -272,7 +426,7 @@ test.describe('desktop panorama', () => {
   }
 });
 
-test('phone panorama stays static without WebGL or pointer lock; the hotbar reopens the draft', async ({
+test('every phone theme stays static without WebGL or pointer lock; the hotbar reopens the draft', async ({
   page,
   isMobile,
 }) => {
@@ -320,23 +474,66 @@ test('phone panorama stays static without WebGL or pointer lock; the hotbar reop
   await page
     .getByRole('textbox', { name: 'Book page 1', exact: true })
     .fill('A static phone note.');
-  await expect(page.locator('#panorama')).toBeHidden();
-  await expect(page.locator('#background img')).toHaveAttribute(
-    'src',
-    panoramaFace,
-  );
-  await page.getByRole('button', { name: 'Done', exact: true }).click();
-  await expect(page.locator('#game')).toHaveAttribute('data-screen', 'scene');
-  await expect(page.locator('#panorama')).toBeHidden();
-  expect(
-    await page.evaluate(() => document.pointerLockElement ?? null),
-  ).toBeNull();
-  await page
-    .getByRole('button', { name: 'Open Book and Quill', exact: true })
-    .tap();
-  await expect(
-    page.getByRole('textbox', { name: 'Book page 1', exact: true }),
-  ).toHaveValue('A static phone note.');
+  for (let index = 0; index < scenes.length; index += 1) {
+    const scene = scenes[index]!;
+    await expect(page.locator('#panorama')).toBeHidden();
+    await expect(page.locator('#background img')).toHaveAttribute(
+      'src',
+      scene.still,
+    );
+    await expect
+      .poll(() =>
+        page.locator('#background img').evaluate((img) => {
+          if (!(img instanceof HTMLImageElement))
+            throw new Error('Expected phone still image');
+          return img.complete && img.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    await expect(page.locator('#game')).toHaveAttribute('data-screen', 'scene');
+    await expect(page.locator('#panorama')).toBeHidden();
+    expect(
+      await page.evaluate(() => document.pointerLockElement ?? null),
+    ).toBeNull();
+    await page
+      .getByRole('button', { name: 'Open Book and Quill', exact: true })
+      .tap();
+    await expect(
+      page.getByRole('textbox', { name: 'Book page 1', exact: true }),
+    ).toHaveValue('A static phone note.');
+    if (index < scenes.length - 1) {
+      await page
+        .getByRole('button', { name: 'Open Game Menu', exact: true })
+        .tap();
+      await page
+        .getByRole('button', { name: 'Options...', exact: true })
+        .click();
+      await page
+        .getByRole('button', { name: 'Background...', exact: true })
+        .click();
+      await page
+        .getByRole('button', { name: `Theme: ${scene.name}`, exact: true })
+        .click();
+      await expect(
+        page.getByRole('button', {
+          name: `Theme: ${scenes[index + 1]!.name}`,
+          exact: true,
+        }),
+      ).toBeEnabled();
+      await page
+        .locator('#background-panel')
+        .getByRole('button', { name: 'Done', exact: true })
+        .click();
+      await page
+        .locator('#options-panel')
+        .getByRole('button', { name: 'Done', exact: true })
+        .click();
+      await page
+        .getByRole('button', { name: 'Back to Game', exact: true })
+        .click();
+    }
+  }
   const observed = await page.evaluate(() => window.panoramaObserved);
   expect(observed.contexts.filter((type) => /webgl/.test(type))).toEqual([]);
   expect(observed.lockRequests).toBe(0);

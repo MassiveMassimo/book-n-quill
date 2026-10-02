@@ -70,13 +70,13 @@ music terms that apply. The release remains unapproved until this is resolved.
 
 ## Screens and interaction
 
-| Screen      | Required behavior                                                                                                            |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Book editor | Initial screen. Restore the one draft and selected page. Show the reference book, page controls, Done, and Sign.             |
-| Signing     | Reference title-screen layout. Sign and Close downloads immediately, then closes to the scene. Cancel returns to the editor. |
-| Scene       | Panorama mouse-look on desktop. Phones and still themes stay fixed. Right-click or the book item reopens the draft.          |
-| Game Menu   | Minecraft-style Back to Game and Options controls. Returning goes to the scene.                                              |
-| Options     | Music & Sounds, Video Settings, Export Settings, and Background settings.                                                    |
+| Screen      | Required behavior                                                                                                                     |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Book editor | Initial screen. Restore the one draft and selected page. Show the reference book, page controls, Done, and Sign.                      |
+| Signing     | Reference title-screen layout. Sign and Close downloads immediately, then closes to the scene. Cancel returns to the editor.          |
+| Scene       | All built-in themes support desktop mouse-look. Phones and custom uploads stay fixed. Right-click or the book item reopens the draft. |
+| Game Menu   | Minecraft-style Back to Game and Options controls. Returning goes to the scene.                                                       |
+| Options     | Music & Sounds, Video Settings, Export Settings, and Background settings.                                                             |
 
 Escape closes the editor or returns from a nested menu to its parent. Escape from
 the scene opens Game Menu. Provide a Minecraft-style pause control for phones.
@@ -144,23 +144,27 @@ imported into Notion, Obsidian, or Apple Notes without testing that destination.
 
 ## Backgrounds
 
-The default theme uses the original Java 26.3 six-face panorama. Native WebGL
+Every built-in theme is a complete six-face panorama. Autumn Camp, the default,
+uses the original Java 26.3 panorama. Native WebGL
 renders a fixed camera position with yaw and pitch. There is no world movement,
-automatic rotation, or game engine. Mouse-look applies only to this panorama.
+automatic rotation, or game engine. Mouse-look applies to every built-in theme.
 Book and menus freeze the view and release pointer lock. Close or Back to Game
 requests pointer lock from the gesture. An unlocked scene can capture it on a
 click. Escape or unexpected lock loss opens Game Menu. Lock denial leaves the
 hotbar usable. Use the system cursor in menus, as in the selected Java client.
-Phones show a fixed panorama face with no WebGL or drag-to-look behavior.
+Phones show an offline fixed perspective of the selected panorama, with no
+WebGL or drag-to-look behavior. Custom uploads remain static on every device.
 
-Still themes use a gameplay screenshot captured with HUD and player hand hidden.
+Custom backgrounds use a gameplay screenshot captured with HUD and player hand hidden.
 Draw the app's real controls over it. Use a centered cover fit and apply game-like
 darkening while the book or menus are open, based on the reference capture.
 
-Built-in backgrounds use online Minecraft screenshots without baked-in HUD,
-crosshair, or hand. Do not bundle the user's gameplay screenshot. Background
-settings provide a Theme button that cycles Panorama, Mountains, Cherry Grove,
-Badlands, and Village; Choose Image; a preview; and Restore Default (Panorama).
+Built-in panoramas have no baked-in HUD, crosshair, or hand. Do not bundle the
+user's gameplay screenshot. Background settings provide a Theme button that
+cycles the scenes; Choose Image; a preview; and Restore Default (Autumn Camp).
+Reuse one renderer and cube texture when switching themes. Decode all six faces
+before upload. Serialize loads and show only the latest selected theme. Load
+only the selected theme's faces on desktop. Phones load only the still image.
 Persist the selected theme. Choosing a theme preserves saved custom image bytes.
 Restore Default removes the saved custom image, as before. Older stored custom
 backgrounds remain usable when no theme choice was saved.

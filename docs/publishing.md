@@ -53,8 +53,8 @@ Before enabling deployment, configure these GitHub repository settings:
 
 The user authorized bundling and publishing the current assets on 2026-10-02,
 with a later review planned. This includes C418's Sweden track and third-party
-screenshots. Publication terms remain unverified. User authorization is not a
-copyright license. Do not describe these assets as project-owned or MIT-licensed.
+screenshots. User authorization is not a copyright license. Do not describe these
+assets as project-owned or MIT-licensed.
 Retain their provenance and resolve any restrictions found in the later review.
 
 For an approved manual release, run `bun run build`, the checks above, then

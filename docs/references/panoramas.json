@@ -1,0 +1,249 @@
+{
+  "repository": "https://github.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets",
+  "commit": "04907cea00baa1d6d62f5ffcae19ed862c42071f",
+  "repositoryLicense": {
+    "files": [],
+    "spdx": null,
+    "status": "No license file in the pinned repository tree."
+  },
+  "release": "Local assets only. The mirror does not establish Minecraft redistribution permission.",
+  "cubeFacesPositiveNegativeXYZ": [1, 3, 5, 4, 0, 2],
+  "mappingSource": "Java CubeMapTexture.SUFFIXES; same mapping as docs/references/java-26.3.md",
+  "uploadFlipY": true,
+  "uprightRay": ["x", "-y", "z"],
+  "stillProjection": {
+    "yaw": 0,
+    "pitch": 0,
+    "verticalFovDegrees": 70,
+    "width": 1600,
+    "height": 900,
+    "sampling": "nearest",
+    "format": "JPEG",
+    "quality": 95,
+    "subsampling": 0
+  },
+  "sets": [
+    {
+      "id": "snowy-coast",
+      "name": "Snowy Coast",
+      "minecraftVersion": "1.21.11",
+      "sourceDirectory": "panorama-images/1.21.11/1.21.11-vanilla-vanilla",
+      "faces": [
+        {
+          "face": 0,
+          "file": "backgrounds/snowy-coast/panorama_0.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/1.21.11/1.21.11-vanilla-vanilla/panorama_0.png",
+          "gitBlobSha1": "19c035181971793978e3ca4eb4b813b97bb24712",
+          "sha256": "62c8d9d9941dcd0b58390e4aacc44cb093b13c0fea16f2c821cb37fd56e503e7",
+          "bytes": 338971,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 1,
+          "file": "backgrounds/snowy-coast/panorama_1.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/1.21.11/1.21.11-vanilla-vanilla/panorama_1.png",
+          "gitBlobSha1": "ec7d6fc1777bca348429983120f7a7264443235c",
+          "sha256": "b00de298a0faadeb39ecd9dd918731c25dfa7e061d11ee59332bfa7b6e494e46",
+          "bytes": 490712,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 2,
+          "file": "backgrounds/snowy-coast/panorama_2.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/1.21.11/1.21.11-vanilla-vanilla/panorama_2.png",
+          "gitBlobSha1": "a1f910584e24b8c0651be8c524e1a0355df82ef1",
+          "sha256": "db39d1eafc7c82bdc336ad453238fedbec09862a59f4d1886749a0545f8f57a5",
+          "bytes": 543621,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 3,
+          "file": "backgrounds/snowy-coast/panorama_3.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/1.21.11/1.21.11-vanilla-vanilla/panorama_3.png",
+          "gitBlobSha1": "3af9509d60b94cac31d89963f44fea5cd41fc2a5",
+          "sha256": "c130e4e363b2bfe1d6e3895ad50e655e83f06b0e0356ec8ee372ad44908448f8",
+          "bytes": 292928,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 4,
+          "file": "backgrounds/snowy-coast/panorama_4.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/1.21.11/1.21.11-vanilla-vanilla/panorama_4.png",
+          "gitBlobSha1": "91c3fe4777fc9b11b86467f81670f23e93c2f6e7",
+          "sha256": "6c3f27c076e9f5c0a18ef738175140c879bdc7f8cc9a0add4097040faacac902",
+          "bytes": 65346,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 5,
+          "file": "backgrounds/snowy-coast/panorama_5.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/1.21.11/1.21.11-vanilla-vanilla/panorama_5.png",
+          "gitBlobSha1": "a5f00d5eb34d713f48f668b30079a4db24b0193f",
+          "sha256": "d51f7917f6fcde1f547988cac362bf9ef4536ab3af1362a0325029af6ba36e14",
+          "bytes": 9414,
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "still": {
+        "file": "backgrounds/snowy-coast/still.jpg",
+        "sourceFaces": [0, 1, 3],
+        "bytes": 279651,
+        "sha256": "9ff9e039f711447b6fec2704d3fe92b9688fabc73d6563249c9fbae257161246"
+      }
+    },
+    {
+      "id": "cherry-grove",
+      "name": "Cherry Grove",
+      "minecraftVersion": "26.1",
+      "sourceDirectory": "panorama-images/26.1/26.1-vanilla-vanilla",
+      "faces": [
+        {
+          "face": 0,
+          "file": "backgrounds/cherry-grove/panorama_0.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.1/26.1-vanilla-vanilla/panorama_0.png",
+          "gitBlobSha1": "d6171f616e1a978727cf76f7d9167cf4d5295e78",
+          "sha256": "3e55b51acf3028094cb206999dbda4d03109057a68ed528cd4b4c419410a41a8",
+          "bytes": 740889,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 1,
+          "file": "backgrounds/cherry-grove/panorama_1.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.1/26.1-vanilla-vanilla/panorama_1.png",
+          "gitBlobSha1": "bc26f364ed5c4fc88847a1cb315457a28c9fab2f",
+          "sha256": "0349b9ecbe755cb21fd5006dbfc281830bda5978e74d428d6da384ac2f41df9d",
+          "bytes": 912462,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 2,
+          "file": "backgrounds/cherry-grove/panorama_2.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.1/26.1-vanilla-vanilla/panorama_2.png",
+          "gitBlobSha1": "694e52e75ea6a44d2264187c3828aa9d0aaeb054",
+          "sha256": "f239426005911dcc47f73c2ed3756ae186459c806b33e92ac9279577c0df42b6",
+          "bytes": 919947,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 3,
+          "file": "backgrounds/cherry-grove/panorama_3.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.1/26.1-vanilla-vanilla/panorama_3.png",
+          "gitBlobSha1": "a947213c0c15891ce35b4e1ea40b011c589c54de",
+          "sha256": "67bff301179edd9493b5c86d1dd04dba23f5c12caa7fe8a459932000add43399",
+          "bytes": 812269,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 4,
+          "file": "backgrounds/cherry-grove/panorama_4.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.1/26.1-vanilla-vanilla/panorama_4.png",
+          "gitBlobSha1": "cc6ba4fb4d4877aeef1aaa72ffd6a5c29a65b3a7",
+          "sha256": "6856cf9d3c50c0e271990af0a57d60a94fc8aabba4891d8f3e1587ae028bd5da",
+          "bytes": 105355,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 5,
+          "file": "backgrounds/cherry-grove/panorama_5.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.1/26.1-vanilla-vanilla/panorama_5.png",
+          "gitBlobSha1": "3a598e73c66772ab628d619c82778286dee3a63d",
+          "sha256": "e8882afd7a2c418e8ff2620ea47deb75ffd7372d930ee96f0c04d34d2ad389d1",
+          "bytes": 55440,
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "still": {
+        "file": "backgrounds/cherry-grove/still.jpg",
+        "sourceFaces": [0, 1, 3],
+        "bytes": 817596,
+        "sha256": "4dad0c783052626f1f42a9d60fcbb06d93333209354e325c6da963dc02dc6ce0"
+      }
+    },
+    {
+      "id": "sulfur-caves",
+      "name": "Sulfur Caves",
+      "minecraftVersion": "26.2",
+      "sourceDirectory": "panorama-images/26.2/26.2-vanilla-vanilla",
+      "faces": [
+        {
+          "face": 0,
+          "file": "backgrounds/sulfur-caves/panorama_0.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.2/26.2-vanilla-vanilla/panorama_0.png",
+          "gitBlobSha1": "dcc4e758eb45b579289382668d67ac8e3a2a8bd2",
+          "sha256": "727bc801b2c795eb03ede8e8b17de650bb4a2c857256f9cb5b5f4fc09518f7ce",
+          "bytes": 685569,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 1,
+          "file": "backgrounds/sulfur-caves/panorama_1.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.2/26.2-vanilla-vanilla/panorama_1.png",
+          "gitBlobSha1": "98e2e03c6c9cc7e1713d4eb510e18c96a85ba26a",
+          "sha256": "5b360ee35a7848fcd1afb51641bf42c42e3cd54a58b24f461c91aac72f072094",
+          "bytes": 548801,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 2,
+          "file": "backgrounds/sulfur-caves/panorama_2.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.2/26.2-vanilla-vanilla/panorama_2.png",
+          "gitBlobSha1": "4f2bb29ef0b1d7afa95118da9bdec7b1fc134a7e",
+          "sha256": "c8a6de9b521b3c8cb8acaa7a993fd5e4678cf2f30339817095456ad27398d299",
+          "bytes": 679554,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 3,
+          "file": "backgrounds/sulfur-caves/panorama_3.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.2/26.2-vanilla-vanilla/panorama_3.png",
+          "gitBlobSha1": "cedba43fbb4ea2ac80ba4d7ba5e00975f1b0a7aa",
+          "sha256": "f4528a6fb36bbf9e047b95b2b75b102ba939661fc553bbcae7c16eecef1a5da6",
+          "bytes": 583180,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 4,
+          "file": "backgrounds/sulfur-caves/panorama_4.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.2/26.2-vanilla-vanilla/panorama_4.png",
+          "gitBlobSha1": "d27baa8e5f16a7207b84d3407713c7c7b951c8ff",
+          "sha256": "81fc0813b7b106e6dec55d8e2d8b5a0b836173de08ac9cf2a0cce68d04e14440",
+          "bytes": 315851,
+          "width": 1024,
+          "height": 1024
+        },
+        {
+          "face": 5,
+          "file": "backgrounds/sulfur-caves/panorama_5.png",
+          "sourceUrl": "https://raw.githubusercontent.com/Vanilla-Panorama-Plus/vanilla-panorama-plus-assets/04907cea00baa1d6d62f5ffcae19ed862c42071f/panorama-images/26.2/26.2-vanilla-vanilla/panorama_5.png",
+          "gitBlobSha1": "a17036c95f0d63d005347121b22f3d84d1303f97",
+          "sha256": "7ae38d25d4cc2de746fcea5d597add69c4bd0ca5a638b34159e56362a5bdd546",
+          "bytes": 119933,
+          "width": 1024,
+          "height": 1024
+        }
+      ],
+      "still": {
+        "file": "backgrounds/sulfur-caves/still.jpg",
+        "sourceFaces": [0, 1, 3],
+        "bytes": 319025,
+        "sha256": "b6ef72d195b5256182dd5372934608227172a60f9cf44dda27a403235a111a60"
+      }
+    }
+  ]
+}

@@ -21,10 +21,9 @@ intended to replace a person's daily note system.
   restores the cursor. Escape releases the mouse and opens Game Menu.
 - Phones use a fixed background and touch controls. There is no drag-to-look.
   The app draws its own interactive HUD, without a player hand.
-- Built-in backgrounds come from online Minecraft screenshots, not the user's
-  game capture. Background settings include a Theme button that cycles through
-  Panorama, Mountains, Cherry Grove, Badlands, and Village. The choice persists
-  locally. Screenshots and custom uploads stay static on all devices.
+- Every built-in background is a full Minecraft panorama, not the user's game
+  capture. Background settings cycle through named scenes. The default is Autumn
+  Camp. Choices persist locally. Custom uploads stay static on all devices.
 - Closing the book reveals the background and a Book and Quill icon. The icon
   reopens the same editable draft.
 - Minecraft-style Game Menu and Options pages. Settings include music volume,

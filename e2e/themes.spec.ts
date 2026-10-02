@@ -10,7 +10,7 @@ test('background themes cycle, persist, preview, and preserve the draft', async 
   await page
     .getByRole('textbox', { name: 'Book page 1', exact: true })
     .fill('Keep this thought.');
-  await page.getByRole('button', { name: 'Done', exact: true }).click();
+  await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Options...', exact: true }).click();
   await page
@@ -28,11 +28,10 @@ test('background themes cycle, persist, preview, and preserve the draft', async 
     page.viewportSize()!.height,
   );
   for (const [current, next, src] of [
-    ['Panorama', 'Mountains', '/backgrounds/mountains.jpg'],
-    ['Mountains', 'Cherry Grove', '/backgrounds/cherry-grove.jpg'],
-    ['Cherry Grove', 'Badlands', '/backgrounds/badlands.jpg'],
-    ['Badlands', 'Village', '/backgrounds/plains.jpg'],
-    ['Village', 'Panorama', '/minecraft/panorama/panorama-still.jpg'],
+    ['Autumn Camp', 'Snowy Coast', '/backgrounds/snowy-coast/still.jpg'],
+    ['Snowy Coast', 'Cherry Grove', '/backgrounds/cherry-grove/still.jpg'],
+    ['Cherry Grove', 'Sulfur Caves', '/backgrounds/sulfur-caves/still.jpg'],
+    ['Sulfur Caves', 'Autumn Camp', '/minecraft/panorama/panorama-still.jpg'],
   ]) {
     await page
       .getByRole('button', { name: `Theme: ${current}`, exact: true })
@@ -41,11 +40,7 @@ test('background themes cycle, persist, preview, and preserve the draft', async 
       page.getByRole('button', { name: `Theme: ${next}`, exact: true }),
     ).toBeEnabled();
     for (const selector of ['#background img', '#background-preview img']) {
-      if (
-        next === 'Panorama' &&
-        selector === '#background-preview img' &&
-        desktop
-      ) {
+      if (selector === '#background-preview img' && desktop) {
         // Check a boolean so a failed snapshot assertion cannot print its data URL.
         await expect
           .poll(() =>
@@ -73,15 +68,15 @@ test('background themes cycle, persist, preview, and preserve the draft', async 
     }
   }
   await page
-    .getByRole('button', { name: 'Theme: Panorama', exact: true })
+    .getByRole('button', { name: 'Theme: Autumn Camp', exact: true })
     .click();
   await page
-    .getByRole('button', { name: 'Theme: Mountains', exact: true })
+    .getByRole('button', { name: 'Theme: Snowy Coast', exact: true })
     .click();
   await page.reload();
   await expect(page.locator('#background img')).toHaveAttribute(
     'src',
-    '/backgrounds/cherry-grove.jpg',
+    '/backgrounds/cherry-grove/still.jpg',
   );
   await expect(
     page.getByRole('textbox', { name: 'Book page 1', exact: true }),
@@ -92,7 +87,7 @@ test('choosing a theme after an upload persists without deleting custom image by
   page,
 }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Done', exact: true }).click();
+  await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Options...', exact: true }).click();
   await page

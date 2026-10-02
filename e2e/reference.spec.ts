@@ -57,7 +57,7 @@ test('short phone keeps readable controls, reachable Done, and the viewport prev
   expect(choose.y - theme.y).toBeGreaterThanOrEqual(44.99);
   await page.touchscreen.tap(160, 294.43);
   await expect(
-    page.getByRole('button', { name: 'Theme: Mountains', exact: true }),
+    page.getByRole('button', { name: 'Theme: Snowy Coast', exact: true }),
   ).toBeEnabled();
   await done.click();
   await page.setViewportSize({ width: 390, height: 844 });
