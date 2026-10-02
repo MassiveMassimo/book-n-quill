@@ -1,0 +1,52 @@
+{
+  "name": "book-n-quill",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.2",
+  "engines": {
+    "node": ">=22.12.0",
+    "bun": ">=1.4.2"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "lint": "oxlint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "hooks:install": "simple-git-hooks",
+    "check": "astro check",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test:unit": "bun test",
+    "test:e2e": "playwright test",
+    "deploy": "wrangler deploy"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "bunx --no-install lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs,cjs,astro}": [
+      "oxlint",
+      "prettier --write"
+    ],
+    "*.{css,json,jsonc,md,yml,yaml}": "prettier --write"
+  },
+  "dependencies": {
+    "astro": "7.3.5",
+    "valibot": "1.5.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@oxlint/plugins": "1.86.0",
+    "@playwright/test": "1.63.0",
+    "@types/bun": "^1.4.2",
+    "@types/node": "^24.19.1",
+    "lint-staged": "17.6.0",
+    "oxlint": "1.86.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
+    "simple-git-hooks": "2.14.0",
+    "typescript": "~6.0.0",
+    "wrangler": "4.146.0"
+  }
+}

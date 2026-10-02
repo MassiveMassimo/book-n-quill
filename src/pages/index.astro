@@ -1,0 +1,76 @@
+---
+import Book from '../components/Book.astro';
+import Menus from '../components/Menus.astro';
+import '../styles/game.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#3d4828" />
+    <meta
+      name="description"
+      content="Jot something down in a Minecraft Book and Quill. One book, saved in your browser."
+    />
+    <link rel="icon" href="/minecraft/writable_book.png" type="image/png" />
+    <title>Book n Quill</title>
+  </head>
+  <body>
+    <h1 class="sr-only">Book n Quill</h1>
+    <div id="background" aria-hidden="true">
+      <img
+        src="/minecraft/panorama/panorama-still.jpg"
+        alt=""
+        decoding="async"
+      />
+      <canvas id="panorama" hidden></canvas>
+    </div>
+    <main id="game" data-screen="book">
+      <div id="hud" hidden>
+        <img class="crosshair" src="/minecraft/crosshair.png" alt="" />
+        <div class="hotbar">
+          <button
+            id="reopen"
+            aria-label="Open Book and Quill"
+            title="Book and Quill"
+          >
+            <img
+              src="/minecraft/writable_book.png"
+              width="16"
+              height="16"
+              alt=""
+            />
+            <span class="tooltip">Book and Quill</span>
+          </button>
+        </div>
+        <span class="item-name" aria-hidden="true">
+          Book and Quill
+        </span>
+      </div>
+      <div id="shade" aria-hidden="true"></div>
+      <div id="gui">
+        <Book />
+        <Menus />
+      </div>
+      <button
+        id="touch-menu"
+        class="mc-button touch-menu"
+        aria-label="Open Game Menu"
+      >
+        Ⅱ
+      </button>
+    </main>
+    <p id="notice" role="status" aria-live="polite" hidden></p>
+    <noscript>
+      This book needs JavaScript to save and edit. Enable JavaScript to open it.
+    </noscript>
+    <script>
+      import '../scripts/app';
+    </script>
+  </body>
+</html>

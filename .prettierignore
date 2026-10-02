@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.astro/
+.wrangler/
+test-results/
+playwright-report/
+bun.lock
+tools/oxlint/anti-slop/
+src/scripts/glyph-widths.json

@@ -1,0 +1,153 @@
+<section id="menu-panel" class="menu-panel" aria-label="Game Menu" hidden>
+  <h2>Game Menu</h2>
+  <div class="menu-buttons single">
+    <button class="mc-button" data-action="resume">
+      Back to Game
+    </button>
+    <button class="mc-button" data-screen="options">
+      Options...
+    </button>
+  </div>
+</section>
+<section id="options-panel" class="menu-panel" aria-label="Options" hidden>
+  <h2>Options</h2>
+  <div class="menu-buttons">
+    <button class="mc-button" data-screen="sounds">
+      Music &amp; Sounds...
+    </button>
+    <button class="mc-button" data-screen="video">
+      Video Settings...
+    </button>
+    <button class="mc-button" data-screen="export">
+      Export Settings...
+    </button>
+    <button class="mc-button" data-screen="background">
+      Background...
+    </button>
+  </div>
+  <button class="mc-button menu-done" data-screen="menu">
+    Done
+  </button>
+  <p class="asset-notice">
+    Unofficial Minecraft fan project.
+    <br />
+    Not approved by or associated with Mojang or Microsoft.
+    <br />
+    Music: Sweden by C418.
+  </p>
+</section>
+<section
+  id="sounds-panel"
+  class="menu-panel"
+  aria-label="Music and Sounds"
+  hidden
+>
+  <h2>Music &amp; Sounds</h2>
+  <div class="menu-buttons">
+    <label class="mc-slider">
+      <span id="music-label">Music: 15%</span>
+      <input
+        id="music-volume"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value="15"
+        aria-labelledby="music-label"
+      />
+    </label>
+    <label class="mc-slider">
+      <span id="effects-label">Sound Effects: 50%</span>
+      <input
+        id="effects-volume"
+        type="range"
+        min="0"
+        max="100"
+        step="1"
+        value="50"
+        aria-labelledby="effects-label"
+      />
+    </label>
+  </div>
+  <button class="mc-button menu-done" data-screen="options">
+    Done
+  </button>
+</section>
+<section id="video-panel" class="menu-panel" aria-label="Video Settings" hidden>
+  <h2>Video Settings</h2>
+  <div class="menu-buttons single">
+    <button id="fullscreen" class="mc-button" aria-pressed="false">
+      Fullscreen: OFF
+    </button>
+  </div>
+  <p id="fullscreen-help" class="menu-help">
+    Panorama: click to look, right-click to write.
+    <br />
+    Escape opens Game Menu and can leave fullscreen.
+  </p>
+  <button class="mc-button menu-done" data-screen="options">
+    Done
+  </button>
+</section>
+<section
+  id="export-panel"
+  class="menu-panel"
+  aria-label="Export Settings"
+  hidden
+>
+  <h2>Export Settings</h2>
+  <div class="menu-buttons single">
+    <button id="export-format" class="mc-button">
+      Format: Markdown (.md)
+    </button>
+  </div>
+  <p class="menu-help">
+    Sign and Close downloads this format.
+    <br />
+    Pages are joined with blank lines.
+  </p>
+  <button class="mc-button menu-done" data-screen="options">
+    Done
+  </button>
+</section>
+<section
+  id="background-panel"
+  class="menu-panel background-panel"
+  aria-label="Background"
+  hidden
+>
+  <h2>Background</h2>
+  <div id="background-preview" class="background-preview">
+    <img
+      src="/minecraft/panorama/panorama-still.jpg"
+      alt="Current background preview"
+    />
+  </div>
+  <button id="background-theme" class="mc-button background-theme">
+    Theme: Panorama
+  </button>
+  <div class="background-buttons">
+    <button id="choose-background" class="mc-button">
+      Choose Image...
+    </button>
+    <button id="restore-background" class="mc-button">
+      Restore Default
+    </button>
+  </div>
+  <input
+    id="background-file"
+    type="file"
+    accept="image/png,image/jpeg"
+    hidden
+  />
+  <p class="background-help">
+    Still PNG or JPEG, up to 10 MB.
+    <br />
+    Press F1 in Minecraft to hide the HUD and hand.
+    <br />
+    Images stay in this browser.
+  </p>
+  <button class="mc-button background-done" data-screen="options">
+    Done
+  </button>
+</section>

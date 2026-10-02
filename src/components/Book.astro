@@ -1,0 +1,61 @@
+<section id="book-panel" class="book-panel" aria-label="Book and Quill">
+  <div class="book-texture" aria-hidden="true"></div>
+  <div id="editing">
+    <p id="page-number" class="page-number" aria-live="polite">
+      Page 1 of 1
+    </p>
+    <label for="page-text" class="sr-only">
+      Book page
+    </label>
+    <textarea
+      id="page-text"
+      spellcheck="false"
+      autocomplete="off"
+      autocapitalize="off"
+      wrap="soft"
+      aria-describedby="page-number"
+    ></textarea>
+    <button
+      id="previous"
+      class="page-arrow previous"
+      aria-label="Previous page"
+      hidden
+    ></button>
+    <button id="next" class="page-arrow next" aria-label="Next page"></button>
+    <div class="book-actions">
+      <button id="sign" class="mc-button">
+        Sign
+      </button>
+      <button id="close" class="mc-button">
+        Done
+      </button>
+    </div>
+  </div>
+  <div id="signing" hidden>
+    <label class="title-label" for="book-title">
+      Enter Book Title:
+    </label>
+    <input
+      id="book-title"
+      class="book-title"
+      type="text"
+      maxlength="15"
+      spellcheck="false"
+      autocomplete="off"
+    />
+    <p class="author">by You</p>
+    <p class="sign-warning">
+      Sign to download your book.
+      <br />
+      Your draft stays editable.
+    </p>
+    <div class="book-actions">
+      <button id="finalize" class="mc-button" disabled>
+        Sign and Close
+      </button>
+      <button id="cancel-sign" class="mc-button">
+        Cancel
+      </button>
+    </div>
+  </div>
+</section>

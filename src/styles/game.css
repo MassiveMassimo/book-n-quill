@@ -1,0 +1,635 @@
+@font-face {
+  font-family: Minecraft;
+  src: url('/minecraft/minecraft.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  font-family: Minecraft, monospace;
+  color: #fff;
+  background: #283221;
+  --gui-scale: 3;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+button,
+input,
+textarea {
+  font-family: inherit;
+  font-size: 8px;
+  font-weight: 400;
+}
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+button,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+[hidden] {
+  display: none !important;
+}
+img {
+  image-rendering: pixelated;
+}
+p,
+h2 {
+  margin: 0;
+  font-size: 8px;
+  font-weight: 400;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+#background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #708775;
+}
+#background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: auto;
+}
+#panorama {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#game[data-looking='true'],
+#game[data-looking='true'] * {
+  cursor: none;
+}
+#game {
+  position: absolute;
+  inset: 0;
+}
+#shade {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 45%);
+  backdrop-filter: blur(4px);
+}
+#game[data-screen='scene'] #shade {
+  display: none;
+}
+#gui {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 320px;
+  height: 240px;
+  transform: translateX(-50%) scale(var(--gui-scale));
+  transform-origin: top center;
+  font-size: 8px;
+  line-height: 9px;
+}
+
+.book-panel {
+  position: absolute;
+  width: 200px;
+  height: 216px;
+  left: 60px;
+  top: 0;
+  color: #000;
+}
+.book-texture {
+  position: absolute;
+  left: 4px;
+  top: 2px;
+  width: 192px;
+  height: 192px;
+  background: url('/minecraft/book.png') 0 0 / 256px 256px;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+.page-number {
+  position: absolute;
+  top: 18px;
+  right: 48px;
+  white-space: nowrap;
+}
+#page-text {
+  position: absolute;
+  top: 32px;
+  left: 39px;
+  width: 114px;
+  height: 126px;
+  line-height: 9px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  resize: none;
+  border-radius: 0;
+  background: transparent;
+  color: #000;
+  caret-color: #000;
+  overflow: hidden;
+  font-kerning: none;
+  font-variant-ligatures: none;
+  tab-size: 4;
+  overflow-wrap: break-word;
+}
+#page-text::selection,
+.book-title::selection {
+  background: #0000aa;
+  color: #fff;
+}
+.book-actions {
+  position: absolute;
+  top: 196px;
+  left: 0;
+  width: 200px;
+  display: grid;
+  grid-template-columns: 98px 98px;
+  gap: 4px;
+}
+.mc-button {
+  --widget: url('/minecraft/button.png');
+  position: relative;
+  height: 20px;
+  padding: 0 4px;
+  border: 3px solid transparent;
+  border-image: var(--widget) 0 3 / 0 3px / 0 repeat;
+  background: var(--widget) 0 0 / 200px 20px no-repeat;
+  background-origin: border-box;
+  background-clip: border-box;
+  color: #fff;
+  text-shadow: 1px 1px #3f3f3f;
+  line-height: 10px;
+  white-space: nowrap;
+  image-rendering: pixelated;
+}
+.mc-button:hover:not(:disabled),
+.mc-button:focus-visible {
+  --widget: url('/minecraft/button_highlighted.png');
+}
+.mc-button:disabled {
+  --widget: url('/minecraft/button_disabled.png');
+  color: #a0a0a0;
+  text-shadow: 1px 1px #282828;
+  cursor: default;
+}
+.mc-button:focus-visible {
+  outline: 1px solid #fff;
+  outline-offset: -2px;
+}
+.page-arrow {
+  position: absolute;
+  top: 159px;
+  width: 23px;
+  height: 13px;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  background-size: 23px 13px;
+  image-rendering: pixelated;
+}
+.previous {
+  left: 47px;
+  background-image: url('/minecraft/page_backward.png');
+}
+.next {
+  left: 120px;
+  background-image: url('/minecraft/page_forward.png');
+}
+.previous:hover,
+.previous:focus-visible {
+  background-image: url('/minecraft/page_backward_highlighted.png');
+}
+.next:hover,
+.next:focus-visible {
+  background-image: url('/minecraft/page_forward_highlighted.png');
+}
+.page-arrow:focus-visible {
+  outline: 1px dashed #604829;
+  outline-offset: 1px;
+}
+.title-label {
+  position: absolute;
+  left: 40px;
+  top: 34px;
+  width: 114px;
+  text-align: center;
+  white-space: nowrap;
+}
+.book-title {
+  position: absolute;
+  left: 40px;
+  top: 50px;
+  width: 114px;
+  height: 10px;
+  line-height: 9px;
+  color: #000;
+  background: transparent;
+  border: none;
+  padding: 0;
+  outline: none;
+  text-align: center;
+  border-radius: 0;
+}
+.author {
+  position: absolute;
+  left: 40px;
+  top: 60px;
+  width: 114px;
+  text-align: center;
+  color: #555;
+}
+.sign-warning {
+  position: absolute;
+  left: 40px;
+  top: 82px;
+  width: 114px;
+  line-height: 9px;
+}
+
+.menu-panel {
+  position: absolute;
+  width: 310px;
+  height: 240px;
+  top: 0;
+  left: 5px;
+  text-shadow: 1px 1px #3f3f3f;
+}
+.menu-panel h2 {
+  text-align: center;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+}
+.menu-buttons {
+  position: absolute;
+  top: 68px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 150px 150px;
+  gap: 4px 10px;
+}
+.menu-buttons.single {
+  width: 200px;
+  left: 55px;
+  grid-template-columns: 200px;
+}
+.menu-done {
+  position: absolute;
+  top: 210px;
+  left: 55px;
+  width: 200px;
+}
+.menu-help {
+  position: absolute;
+  top: 112px;
+  left: 15px;
+  width: 280px;
+  text-align: center;
+  line-height: 12px;
+  color: #ccc;
+}
+.asset-notice {
+  position: absolute;
+  top: 135px;
+  width: 100%;
+  text-align: center;
+  line-height: 12px;
+  font-size: 7px;
+}
+.mc-slider {
+  position: relative;
+  width: 150px;
+  height: 20px;
+  border: 1px solid transparent;
+  border-image: url('/minecraft/slider.png') 0 1 / 0 1px / 0 repeat;
+  background: url('/minecraft/slider.png') 0 0 / 200px 20px no-repeat;
+  background-origin: border-box;
+  background-clip: border-box;
+  image-rendering: pixelated;
+}
+.mc-slider span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+.mc-slider input {
+  appearance: none;
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  margin: 0;
+  width: calc(100% + 2px);
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+.mc-slider input::-webkit-slider-thumb {
+  appearance: none;
+  width: 8px;
+  height: 20px;
+  background: url('/minecraft/slider_handle.png') center / 100% 100%;
+  image-rendering: pixelated;
+}
+.mc-slider input::-moz-range-thumb {
+  border: 0;
+  border-radius: 0;
+  width: 8px;
+  height: 20px;
+  background: url('/minecraft/slider_handle.png') center / 100% 100%;
+}
+.mc-slider input:hover::-webkit-slider-thumb,
+.mc-slider input:focus-visible::-webkit-slider-thumb {
+  background-image: url('/minecraft/slider_handle_highlighted.png');
+}
+.mc-slider input:hover::-moz-range-thumb,
+.mc-slider input:focus-visible::-moz-range-thumb {
+  background-image: url('/minecraft/slider_handle_highlighted.png');
+}
+.mc-slider input:focus-visible {
+  outline: 1px solid white;
+  outline-offset: -2px;
+}
+.background-panel h2 {
+  top: 12px;
+}
+.background-preview {
+  --preview-height: min(95px, calc(200px / var(--viewport-ratio)));
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(200px, calc(95px * var(--viewport-ratio)));
+  height: var(--preview-height);
+  overflow: hidden;
+  background: #444;
+  outline: 1px solid #000;
+}
+.background-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: auto;
+}
+.background-theme {
+  position: absolute;
+  top: 132px;
+  left: 55px;
+  width: 200px;
+}
+.background-buttons {
+  position: absolute;
+  top: 160px;
+  left: 0;
+  width: 310px;
+  display: grid;
+  grid-template-columns: 150px 150px;
+  gap: 10px;
+}
+.background-help {
+  position: absolute;
+  top: 188px;
+  width: 310px;
+  text-align: center;
+  line-height: 12px;
+  color: #ccc;
+}
+.background-done {
+  position: absolute;
+  top: 230px;
+  left: 55px;
+  width: 200px;
+}
+
+.hotbar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 182px;
+  height: 22px;
+  background: url('/minecraft/hotbar.png') center / 182px 22px;
+  transform: translateX(-50%) scale(var(--gui-scale));
+  transform-origin: bottom center;
+  image-rendering: pixelated;
+}
+#reopen {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 24px;
+  height: 23px;
+  background: url('/minecraft/hotbar_selection.png') center / 24px 23px;
+  border: 0;
+  padding: 4px;
+  image-rendering: pixelated;
+}
+#reopen img {
+  display: block;
+}
+#reopen:focus-visible {
+  outline: 1px solid #fff;
+}
+.tooltip {
+  display: none;
+  position: absolute;
+  bottom: 30px;
+  left: 4px;
+  padding: 3px;
+  background: rgb(16 0 16 / 94%);
+  border: 1px solid #28007f;
+  color: #fff;
+  font-size: 8px;
+  line-height: 9px;
+  white-space: nowrap;
+  text-shadow: 1px 1px #3f3f3f;
+}
+#reopen:hover .tooltip,
+#reopen:focus-visible .tooltip {
+  display: block;
+}
+.crosshair {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(var(--gui-scale));
+  opacity: 0.8;
+}
+.item-name {
+  position: absolute;
+  bottom: calc(34px * var(--gui-scale));
+  left: 50%;
+  font-size: 8px;
+  line-height: 9px;
+  white-space: nowrap;
+  text-shadow: 1px 1px #333;
+  transform: translateX(-50%) scale(var(--gui-scale));
+  transform-origin: bottom center;
+}
+.touch-menu {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: max(10px, env(safe-area-inset-top));
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+#notice {
+  position: fixed;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 90vw;
+  padding: 8px 12px;
+  background: rgb(0 0 0 / 85%);
+  border: 2px solid #555;
+  color: white;
+  font-size: 16px;
+  line-height: 20px;
+  text-shadow: 2px 2px #333;
+  z-index: 3;
+  pointer-events: none;
+}
+noscript {
+  position: fixed;
+  inset: 20% 10%;
+  background: #222;
+  padding: 20px;
+}
+
+@media (pointer: coarse), (max-width: 600px) {
+  #game {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: var(--visible-height, 100dvh);
+  }
+  #shade {
+    position: fixed;
+  }
+  .touch-menu {
+    display: block;
+    position: fixed;
+    z-index: 2;
+    border-image-slice: 3;
+    border-image-width: 3px;
+    background-size: 100% 100%;
+  }
+  #gui {
+    top: max(54px, env(safe-area-inset-top));
+  }
+  #game[data-screen='background'] #gui {
+    height: 300px;
+  }
+  #game[data-screen='scene'] #gui {
+    pointer-events: none;
+  }
+  /* Keep the computed input font at 16px to avoid automatic iOS page zoom. */
+  #page-text {
+    font-size: 16px;
+    width: 228px;
+    height: 252px;
+    line-height: 18px;
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+  .book-title {
+    font-size: 16px;
+    width: 228px;
+    height: 20px;
+    line-height: 18px;
+    transform: scale(0.5);
+    transform-origin: top left;
+  }
+  .page-arrow::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+  }
+  .menu-panel {
+    left: 60px;
+    width: 200px;
+  }
+  .mc-button::after {
+    content: '';
+    position: absolute;
+    inset-inline: -3px;
+    top: calc((14px - 45px / var(--gui-scale)) / 2);
+    height: calc(45px / var(--gui-scale));
+  }
+  .touch-menu::after {
+    inset: -5px;
+    height: auto;
+  }
+  .menu-buttons,
+  .menu-buttons.single {
+    width: 200px;
+    left: 0;
+    grid-template-columns: 200px;
+    gap: max(4px, calc(48px / var(--gui-scale) - 20px));
+  }
+  .menu-done,
+  .background-done {
+    left: 0;
+  }
+  .menu-help {
+    left: 0;
+    width: 200px;
+  }
+  .mc-slider {
+    width: 200px;
+  }
+  .mc-slider input {
+    height: calc(44px / var(--gui-scale));
+    top: calc((20px - 44px / var(--gui-scale)) / 2 - 1px);
+  }
+  .background-buttons {
+    top: calc(132px + max(28px, calc(48px / var(--gui-scale))));
+    width: 200px;
+    left: 0;
+    grid-template-columns: 200px;
+    gap: max(4px, calc(48px / var(--gui-scale) - 20px));
+  }
+  .background-theme {
+    left: 0;
+  }
+  .background-help {
+    top: 218px;
+    width: 200px;
+  }
+  .background-done {
+    top: 266px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
