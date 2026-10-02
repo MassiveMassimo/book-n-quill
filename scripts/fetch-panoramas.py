@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REPOSITORY = 'Vanilla-Panorama-Plus/vanilla-panorama-plus-assets'
 COMMIT = '04907cea00baa1d6d62f5ffcae19ed862c42071f'
 SETS = [
-    ('snowy-coast', 'Snowy Coast', '1.21.11'),
+    ('snowy-coast', 'Night Coast', '1.21.11'),
     ('cherry-grove', 'Cherry Grove', '26.1'),
     ('sulfur-caves', 'Sulfur Caves', '26.2'),
 ]

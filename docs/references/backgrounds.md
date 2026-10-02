@@ -8,7 +8,7 @@ remain static on every device. The former four screenshot choices were replaced.
 | Scene                 | Source                                       | Product directory                  |
 | --------------------- | -------------------------------------------- | ---------------------------------- |
 | Autumn Camp (default) | Original Java 26.3, installed asset index 34 | `public/minecraft/panorama/`       |
-| Snowy Coast           | 1.21.11 vanilla variant                      | `public/backgrounds/snowy-coast/`  |
+| Night Coast           | 1.21.11 vanilla variant                      | `public/backgrounds/snowy-coast/`  |
 | Cherry Grove          | 26.1 vanilla variant                         | `public/backgrounds/cherry-grove/` |
 | Sulfur Caves          | 26.2 vanilla variant                         | `public/backgrounds/sulfur-caves/` |
 

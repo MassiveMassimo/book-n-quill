@@ -9,7 +9,7 @@ export const THEMES = [
   },
   {
     id: 'snowy-coast',
-    name: 'Snowy Coast',
+    name: 'Night Coast',
     src: '/backgrounds/snowy-coast/still.jpg',
     panoramaDir: '/backgrounds/snowy-coast',
   },

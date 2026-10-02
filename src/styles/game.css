@@ -457,24 +457,6 @@ h2 {
 #reopen:focus-visible {
   outline: 1px solid #fff;
 }
-.tooltip {
-  display: none;
-  position: absolute;
-  bottom: 30px;
-  left: 4px;
-  padding: 3px;
-  background: rgb(16 0 16 / 94%);
-  border: 1px solid #28007f;
-  color: #fff;
-  font-size: 8px;
-  line-height: 9px;
-  white-space: nowrap;
-  text-shadow: 1px 1px #3f3f3f;
-}
-#reopen:hover .tooltip,
-#reopen:focus-visible .tooltip {
-  display: block;
-}
 .crosshair {
   position: absolute;
   width: 15px;

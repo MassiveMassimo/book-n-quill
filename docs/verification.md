@@ -149,7 +149,7 @@ run was fixed by moving the notice below the Options controls.
 ## All built-in scenes are panoramas — 2026-10-02
 
 This change supersedes the earlier mixed panorama/screenshot choices. The theme
-cycle is now Autumn Camp (default), Snowy Coast, Cherry Grove, and Sulfur Caves.
+cycle is now Autumn Camp (default), Night Coast, Cherry Grove, and Sulfur Caves.
 Every built-in supports desktop mouse-look. Custom images remain static. Phones
 use a fixed perspective of each selected scene and create no WebGL context.
 

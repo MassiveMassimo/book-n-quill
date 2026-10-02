@@ -28,8 +28,8 @@ test('background themes cycle, persist, preview, and preserve the draft', async 
     page.viewportSize()!.height,
   );
   for (const [current, next, src] of [
-    ['Autumn Camp', 'Snowy Coast', '/backgrounds/snowy-coast/still.jpg'],
-    ['Snowy Coast', 'Cherry Grove', '/backgrounds/cherry-grove/still.jpg'],
+    ['Autumn Camp', 'Night Coast', '/backgrounds/snowy-coast/still.jpg'],
+    ['Night Coast', 'Cherry Grove', '/backgrounds/cherry-grove/still.jpg'],
     ['Cherry Grove', 'Sulfur Caves', '/backgrounds/sulfur-caves/still.jpg'],
     ['Sulfur Caves', 'Autumn Camp', '/minecraft/panorama/panorama-still.jpg'],
   ]) {
@@ -71,7 +71,7 @@ test('background themes cycle, persist, preview, and preserve the draft', async 
     .getByRole('button', { name: 'Theme: Autumn Camp', exact: true })
     .click();
   await page
-    .getByRole('button', { name: 'Theme: Snowy Coast', exact: true })
+    .getByRole('button', { name: 'Theme: Night Coast', exact: true })
     .click();
   await page.reload();
   await expect(page.locator('#background img')).toHaveAttribute(

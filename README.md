@@ -63,7 +63,7 @@ and Sweden music track. Native caret, selection, and undo follow browser
 behavior. No extra page-flip animation is added.
 
 The default background is Autumn Camp, the full Java 26.3 panorama. Options →
-Background → Theme cycles Autumn Camp, Snowy Coast, Cherry Grove, and Sulfur
+Background → Theme cycles Autumn Camp, Night Coast, Cherry Grove, and Sulfur
 Caves. Every built-in theme
 supports desktop mouse-look. Custom images stay static. Phones show a fixed
 view of every theme. The scenes have no baked-in HUD, crosshair, or hand. Local copies avoid

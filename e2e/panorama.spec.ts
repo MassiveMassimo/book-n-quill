@@ -16,7 +16,7 @@ const panoramaFace = '/minecraft/panorama/panorama-still.jpg';
 const scenes = [
   { name: 'Autumn Camp', source: '/minecraft/panorama', still: panoramaFace },
   {
-    name: 'Snowy Coast',
+    name: 'Night Coast',
     source: '/backgrounds/snowy-coast',
     still: '/backgrounds/snowy-coast/still.jpg',
   },
@@ -398,8 +398,12 @@ test.describe('desktop panorama', () => {
         ]) {
           await page.setViewportSize(viewport);
           await page.locator('#reopen').hover();
+          await expect(
+            page.locator('#hud').getByText('Book and Quill', { exact: true }),
+          ).toHaveCount(1);
+          await expect(page.locator('#reopen')).not.toHaveAttribute('title');
           const notice = await page.getByRole('status').boundingBox();
-          for (const selector of ['.hotbar', '.item-name', '.tooltip']) {
+          for (const selector of ['.hotbar', '.item-name']) {
             const hud = await page.locator(selector).boundingBox();
             expect(notice).not.toBeNull();
             expect(hud).not.toBeNull();

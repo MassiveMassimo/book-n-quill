@@ -113,7 +113,7 @@ Review evidence remains outside the repository:
   outside the extracted bitmap providers uses browser fallback glyphs.
 - Settings are the agreed app subset, using original game controls.
 - All built-in backgrounds are full panoramas without baked-in HUD or hand.
-  Background settings offer Autumn Camp, Snowy Coast, Cherry Grove, and Sulfur
+  Background settings offer Autumn Camp, Night Coast, Cherry Grove, and Sulfur
   Caves. Custom uploads remain static. The original private capture is not bundled.
 - Backgrounds use IndexedDB records containing image bytes and MIME type. The
   first browser run reproduced WebKit's error preparing a Blob for storage.
