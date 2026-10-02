@@ -92,5 +92,17 @@ tests passed 51 applicable cases with 18 project-specific skips across Chromium,
 WebKit, and phone emulation. Those skips cover device-specific capabilities.
 Physical-phone behavior remains separate from emulation.
 
+The initial release is live at
+[book-n-quill.mhmmadjid.workers.dev](https://book-n-quill.mhmmadjid.workers.dev).
+Cloudflare accepted version `2995e0c5-5ccb-452a-a6d3-f914750480d9`.
+Live verification returned HTTP 200 with HTML identical to the tested build,
+security headers present, reload restoration, and an exact Markdown download.
+No browser JavaScript errors were observed in the live smoke test.
+
+[GitHub CI passed](https://github.com/MassiveMassimo/book-n-quill/actions/runs/36983867771).
+Automatic deployment remains disabled while the dedicated token is pending.
+The Cloudflare token review is prepared with Workers Scripts Write for this
+account and a January 1, 2027 expiration. Creating it requires confirmation.
+
 Set `PLAYWRIGHT_PORT` to use a separate local preview port when another checkout
 is running tests. Each checkout keeps its own browser output and build directory.

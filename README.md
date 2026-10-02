@@ -91,3 +91,6 @@ public release, with publication terms still pending review. See
 NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
 
 The public repository is [MassiveMassimo/book-n-quill](https://github.com/MassiveMassimo/book-n-quill).
+The live app is [Book N Quill](https://book-n-quill.mhmmadjid.workers.dev).
+GitHub Actions runs the release checks. Automatic deployment is prepared but
+disabled until its dedicated Cloudflare token is stored in GitHub Secrets.
