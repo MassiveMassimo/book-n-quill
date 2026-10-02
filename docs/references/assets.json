@@ -3,6 +3,12 @@
   "jarSha256": "4508d006323f24fa02876310c192d739af56516eb259000ac50f0909a68c9a2d",
   "files": [
     {
+      "source": "assets/minecraft/textures/block/dirt.png",
+      "file": "minecraft/dirt.png",
+      "sha256": "67197d5371efc3ca1638217c38349665dbd5a977b47bfb20075c858dff87d510",
+      "bytes": 197
+    },
+    {
       "source": "assets/minecraft/textures/gui/book.png",
       "file": "minecraft/book.png",
       "sha256": "e4bd1f3a0cd72a51a84e151cb49ec5788fdf1b25f0616731c27d2361c7439ccd",

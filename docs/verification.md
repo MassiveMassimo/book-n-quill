@@ -1,5 +1,32 @@
 # Local verification: 2026-10-02
 
+## Opening loading-screen trial
+
+The initial dirt-texture screen counts decoded opening images, the loaded font,
+and preparation of the selected view. The screen has a one-second minimum,
+including actual load time. Progress is not driven by that timer. The book stays
+hidden and inert until both conditions are met. Menus and
+reopening the book do not repeat it. Phones load only a still background.
+Audio is outside the opening progress and starts under the existing interaction
+policy. Failed tasks release the screen with a warning and leave progress below
+100%; the book remains usable with the available assets.
+
+Read-only bytecode inspection of the installed Java 26.3 client confirmed a
+direct world-loading exit: `LevelLoadingScreen.tick()` calls `onClose()` when
+the level is ready; `Screen.onClose()` clears the GUI screen; `Gui.setScreen()`
+replaces it without fade logic. `LoadingOverlay`, used for resource loading,
+has separate fade state. The web trial therefore keeps a direct transition.
+The one-second minimum and direct transition passed 12 loading checks across
+Chromium, WebKit, and phone emulation, with 3 platform-specific skips.
+
+The full browser suite passed 60 tests with 24 platform-specific skips. After
+the reviewer found a missing panorama-failure warning, that warning was fixed
+and the affected loading/fallback suite passed 10 tests with 5 skips. Build,
+lint, formatting, and Astro checks passed. Desktop and phone loading screenshots
+were inspected with one real asset request held for capture. The two PNG files
+remain outside the repository under `/tmp/book-n-quill-loading-*-20261002.png`,
+about 166 KB total.
+
 Implemented the confirmed single-book scope. Java 26.3 is the asset and geometry
 reference. The game installation was read only. The current preview is at
 http://127.0.0.1:4321 and was started through Bun.

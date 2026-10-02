@@ -24,7 +24,7 @@ def write_asset(source, data, destination):
                     'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)})
 
 with zipfile.ZipFile(JAR) as jar:
-    paths = ['gui/book.png', 'item/writable_book.png', 'item/written_book.png']
+    paths = ['gui/book.png', 'item/writable_book.png', 'item/written_book.png', 'block/dirt.png']
     paths += ['gui/sprites/widget/' + name + '.png' for name in [
         'button', 'button_highlighted', 'button_disabled', 'slider', 'slider_highlighted',
         'slider_handle', 'slider_handle_highlighted', 'page_forward',

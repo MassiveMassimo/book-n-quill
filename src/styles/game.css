@@ -21,6 +21,51 @@ body {
   height: 100dvh;
   overflow: hidden;
 }
+#loading {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(rgb(0 0 0 / 65%), rgb(0 0 0 / 65%)),
+    url('/minecraft/dirt.png') repeat;
+  background-size:
+    auto,
+    calc(16px * var(--gui-scale)) calc(16px * var(--gui-scale));
+  image-rendering: pixelated;
+}
+.loading-panel {
+  width: 200px;
+  text-align: center;
+  transform: scale(var(--gui-scale));
+  text-shadow: 1px 1px #333;
+}
+.loading-panel p {
+  line-height: 9px;
+}
+#loading-percentage {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+#loading-progress {
+  display: block;
+  appearance: none;
+  border: 0;
+  width: 200px;
+  height: 2px;
+  background: #808080;
+  color: #80ff80;
+}
+#loading-progress::-webkit-progress-bar {
+  background: #808080;
+}
+#loading-progress::-webkit-progress-value {
+  background: #80ff80;
+}
+#loading-progress::-moz-progress-bar {
+  background: #80ff80;
+}
 button,
 input,
 textarea {

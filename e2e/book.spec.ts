@@ -8,6 +8,7 @@ declare global {
 }
 
 async function options(page: Page) {
+  await expect(page.locator('#loading')).toBeHidden();
   // Escape closes the book without starting a pointer-lock request.
   await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');

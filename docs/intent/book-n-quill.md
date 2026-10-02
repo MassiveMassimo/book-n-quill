@@ -10,7 +10,10 @@ intended to replace a person's daily note system.
 
 ## First version
 
-- One Book and Quill. It opens immediately when the site loads.
+- One Book and Quill. A Minecraft-style loading screen precedes the book on site
+  load. Progress follows real asset completion. A one-second minimum prevents a
+  brief flash, then the screen switches directly to the book. This trial was
+  requested on 2026-10-02. Reopening the book does not repeat it.
 - Real Minecraft Java Edition fonts, textures, sounds, and faithful GUI behavior.
   The game is the visual reference. Game parity takes priority over conventional
   web toolbars and export buttons.

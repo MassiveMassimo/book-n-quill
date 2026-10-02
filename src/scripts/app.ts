@@ -12,6 +12,9 @@ import { decodeImage, storedBackground, validateImage } from './background';
 import { gameAudio } from './audio';
 import { THEMES } from './themes';
 import { createPanorama } from './panorama';
+import { loadOpening } from './loading';
+
+const loadingStarted = performance.now();
 
 // SAFETY: IDs and requested element types match the bundled Astro templates.
 const element = <T extends HTMLElement>(id: string) =>
@@ -340,6 +343,7 @@ element('touch-menu').addEventListener('click', () => {
   else show(resumeScreen);
 });
 document.addEventListener('keydown', (event) => {
+  if (game.inert) return;
   if (event.isComposing || composing) return;
   if (event.key === 'Escape') {
     event.preventDefault();
@@ -419,6 +423,7 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 let backgroundUrl: string | undefined;
+let opening = true;
 function applyBackground(url?: string) {
   const previous = backgroundUrl;
   backgroundUrl = url;
@@ -430,10 +435,11 @@ function applyBackground(url?: string) {
         .src;
   }
   cycleTheme.textContent = `Theme: ${url ? 'Custom' : (THEMES.find((theme) => theme.id === settings.background) ?? THEMES[0]).name}`;
-  updatePanorama();
+  if (!opening) void updatePanorama();
   if (previous) URL.revokeObjectURL(previous);
 }
 function updatePanorama() {
+  if (opening) return;
   const active = panoramaSelected() && mouseInput.matches;
   const source = selectedTheme().panoramaDir;
   panoramaCanvas.hidden =
@@ -448,7 +454,7 @@ function updatePanorama() {
     document.exitPointerLock();
   if (active && !panoramaReady() && !panoramaLoading) {
     panoramaLoading = true;
-    void (async () => {
+    return (async () => {
       try {
         panorama ??= await createPanorama(panoramaCanvas, source);
         while (
@@ -486,7 +492,7 @@ function backgroundBusy(busy: boolean) {
 }
 applyBackground();
 backgroundBusy(true);
-void (async () => {
+const backgroundRestored = (async () => {
   try {
     const saved =
       !settings.background || settings.background === 'custom'
@@ -585,4 +591,29 @@ updatePage();
 updateFormat();
 updateFullscreen();
 resize();
-show('book', !matchMedia('(pointer: coarse)').matches);
+show('book', false);
+void (async () => {
+  await backgroundRestored;
+  const failed = await loadOpening(
+    element('background').querySelector('img')!.src,
+    mouseInput.matches && panoramaSelected()
+      ? selectedTheme().panoramaDir
+      : undefined,
+    async () => {
+      opening = false;
+      await updatePanorama();
+      if (mouseInput.matches && panoramaSelected() && !panoramaReady())
+        throw new Error('Opening panorama is unavailable');
+    },
+  );
+  const remaining = 1000 - (performance.now() - loadingStarted);
+  if (remaining > 0)
+    await new Promise<void>((resolve) => setTimeout(resolve, remaining));
+  if (failed) notify('Some assets could not be loaded. You can still write.');
+  element('loading').hidden = true;
+  element('loading').setAttribute('aria-busy', 'false');
+  game.inert = false;
+  game.hidden = false;
+  game.setAttribute('aria-busy', 'false');
+  show('book', !matchMedia('(pointer: coarse)').matches);
+})();

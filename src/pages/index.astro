@@ -21,6 +21,20 @@ import '../styles/game.css';
     <title>Book n Quill</title>
   </head>
   <body>
+    <section id="loading" aria-label="Loading world" aria-busy="true">
+      <div class="loading-panel">
+        <p>Loading world...</p>
+        <p id="loading-percentage" aria-hidden="true">
+          0%
+        </p>
+        <progress
+          id="loading-progress"
+          aria-label="Opening assets loaded"
+          max="1"
+          value="0"
+        ></progress>
+      </div>
+    </section>
     <h1 class="sr-only">Book n Quill</h1>
     <div id="background" aria-hidden="true">
       <img
@@ -30,7 +44,7 @@ import '../styles/game.css';
       />
       <canvas id="panorama" hidden></canvas>
     </div>
-    <main id="game" data-screen="book">
+    <main id="game" data-screen="book" hidden inert aria-busy="true">
       <div id="hud" hidden>
         <img class="crosshair" src="/minecraft/crosshair.png" alt="" />
         <div class="hotbar">
@@ -62,6 +76,11 @@ import '../styles/game.css';
     </main>
     <p id="notice" role="status" aria-live="polite" hidden></p>
     <noscript>
+      <style is:inline>
+        #loading {
+          display: none;
+        }
+      </style>
       This book needs JavaScript to save and edit. Enable JavaScript to open it.
     </noscript>
     <script>

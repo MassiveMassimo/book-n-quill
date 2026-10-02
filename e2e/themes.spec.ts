@@ -87,6 +87,7 @@ test('choosing a theme after an upload persists without deleting custom image by
   page,
 }) => {
   await page.goto('/');
+  await expect(page.locator('#loading')).toBeHidden();
   await page.keyboard.press('Escape');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Options...', exact: true }).click();

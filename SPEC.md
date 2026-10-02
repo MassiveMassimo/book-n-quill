@@ -14,7 +14,14 @@ Make a visitor feel as if they are writing in Minecraft's Java Edition Book and
 Quill. The app is a playful place to jot text, save it locally, and export it to
 another note app. Authenticity is the main success criterion.
 
-The book opens immediately. Desktop and phones are supported. Fullscreen,
+An initial Minecraft-style loading screen opens the book when its assets are ready.
+Its progress counts decoded opening images, the loaded font, and prepared view.
+The screen stays visible for at least one second, including actual loading time.
+The percentage stays based on real work and may reach 100% before that minimum.
+It switches directly to the book, without a crossfade. Failed assets release the
+screen with a warning after the same minimum.
+Menus and reopening the book do not show this screen.
+Desktop and phones are supported. Fullscreen,
 original UI sounds, quiet background music, and a Minecraft scene support
 the experience.
 
