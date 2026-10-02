@@ -244,14 +244,16 @@ test('write failure retains an in-memory book and reports the failed save', asyn
 
 test('original glyph advances match the browser font, and the app makes no external requests', async ({
   page,
+  baseURL,
 }) => {
   const errors: string[] = [],
     external: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
     if (
-      !request.url().startsWith('http://127.0.0.1:4322') &&
-      !request.url().startsWith('blob:')
+      !request.url().startsWith('blob:') &&
+      !request.url().startsWith('data:') &&
+      new URL(request.url()).origin !== new URL(baseURL!).origin
     )
       external.push(request.url());
   });
@@ -360,9 +362,9 @@ test('native editing preserves Unicode, selection, undo, and composition commits
     exact: true,
   });
   await editor.pressSequentially('note');
-  await editor.press('Meta+z');
+  await editor.press('ControlOrMeta+z');
   await expect(editor).toHaveValue('');
-  await editor.press('Meta+Shift+z');
+  await editor.press('ControlOrMeta+Shift+z');
   await expect(editor).toHaveValue('note');
   await editor.fill('Café 日本語 🙂');
   await editor.evaluate((field) => {
@@ -389,7 +391,7 @@ test('native editing preserves Unicode, selection, undo, and composition commits
   );
   await page.reload();
   await expect(editor).toHaveValue('Café 日本語 🙂\n한글');
-  await editor.press('Meta+a');
+  await editor.press('ControlOrMeta+a');
   expect(
     await editor.evaluate((field) => {
       if (!(field instanceof HTMLTextAreaElement))

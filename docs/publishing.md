@@ -50,6 +50,8 @@ Before enabling deployment, configure these GitHub repository settings:
 - Secret `CLOUDFLARE_API_TOKEN`: a dedicated token scoped to Workers deployment
   in the selected account. Do not use an expiring Wrangler OAuth access token.
 - Variable `CLOUDFLARE_ACCOUNT_ID`: the selected Cloudflare account ID.
+- Variable `CLOUDFLARE_DEPLOY_ENABLED=true`: enable automatic deployment after
+  adding the dedicated token. Until then, CI runs all checks without deployment.
 
 The user authorized bundling and publishing the current assets on 2026-10-02,
 with a later review planned. This includes C418's Sweden track and third-party
@@ -60,6 +62,10 @@ Retain their provenance and resolve any restrictions found in the later review.
 For an approved manual release, run `bun run build`, the checks above, then
 `bun run deploy`. Wrangler can use the existing local login. CI needs its own
 durable token. No paid plan change is part of this setup.
+
+The stored draft and settings are decoded with Valibot at the localStorage
+boundary. It does not send data to a server. This replaces unchecked JSON values
+and preserves the existing draft limits and settings fallback behavior.
 
 ## Verification and rollback
 
@@ -80,10 +86,25 @@ the correction. Do not delete browser notes or change storage keys for rollback.
 - [Anti-slop](https://github.com/dmmulroy/anti-slop)
 - [Minecraft usage guidelines](https://www.minecraft.net/en-us/usage-guidelines)
 
-Status: the public [repository](https://github.com/MassiveMassimo/book-n-quill)
-exists. Configuration and hooks are prepared locally. No source has been pushed
-and no deployment has been made. The first lint run found 17 errors and two
-warnings in existing application and test code. Astro checks and six unit tests
-passed before concurrent panorama work changed the app. The subsequent build
-failed because `src/scripts/app.ts` imported an absent `./panorama` module.
-Complete that work, resolve lint findings, and rerun all checks before release.
+Release verification on 2026-10-02: lint, formatting, Astro checks, seven Bun unit
+tests, and the production build passed in an isolated release checkout. Browser
+tests passed 51 applicable cases with 18 project-specific skips across Chromium,
+WebKit, and phone emulation. Those skips cover device-specific capabilities.
+Physical-phone behavior remains separate from emulation.
+
+The initial release is live at
+[book-n-quill.mhmmadjid.workers.dev](https://book-n-quill.mhmmadjid.workers.dev).
+Cloudflare accepted version `2995e0c5-5ccb-452a-a6d3-f914750480d9`.
+Live verification returned HTTP 200 with HTML identical to the tested build,
+security headers present, reload restoration, and an exact Markdown download.
+No browser JavaScript errors were observed in the live smoke test.
+
+[GitHub CI passed](https://github.com/MassiveMassimo/book-n-quill/actions/runs/36983867771).
+Automatic deployment is enabled. The owner approved creation of the dedicated
+account token and storage in this repository's GitHub Actions secret. Its
+permission is Workers Scripts Write across this Cloudflare account. It expires
+January 1, 2027. Rotate it through Cloudflare and update the repository secret
+before expiration. No token value is stored in source, documentation, or logs.
+
+Set `PLAYWRIGHT_PORT` to use a separate local preview port when another checkout
+is running tests. Each checkout keeps its own browser output and build directory.
