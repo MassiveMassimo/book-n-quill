@@ -100,9 +100,11 @@ security headers present, reload restoration, and an exact Markdown download.
 No browser JavaScript errors were observed in the live smoke test.
 
 [GitHub CI passed](https://github.com/MassiveMassimo/book-n-quill/actions/runs/36983867771).
-Automatic deployment remains disabled while the dedicated token is pending.
-The Cloudflare token review is prepared with Workers Scripts Write for this
-account and a January 1, 2027 expiration. Creating it requires confirmation.
+Automatic deployment is enabled. The owner approved creation of the dedicated
+account token and storage in this repository's GitHub Actions secret. Its
+permission is Workers Scripts Write across this Cloudflare account. It expires
+January 1, 2027. Rotate it through Cloudflare and update the repository secret
+before expiration. No token value is stored in source, documentation, or logs.
 
 Set `PLAYWRIGHT_PORT` to use a separate local preview port when another checkout
 is running tests. Each checkout keeps its own browser output and build directory.
