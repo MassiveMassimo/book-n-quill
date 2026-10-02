@@ -236,14 +236,16 @@ test('write failure retains an in-memory book and reports the failed save', asyn
 
 test('original glyph advances match the browser font, and the app makes no external requests', async ({
   page,
+  baseURL,
 }) => {
   const errors: string[] = [],
     external: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('request', (request) => {
     if (
-      !request.url().startsWith('http://127.0.0.1:4322') &&
-      !request.url().startsWith('blob:')
+      !request.url().startsWith('blob:') &&
+      !request.url().startsWith('data:') &&
+      new URL(request.url()).origin !== new URL(baseURL!).origin
     )
       external.push(request.url());
   });

@@ -315,6 +315,8 @@ h2 {
   text-align: center;
   line-height: 12px;
   font-size: 7px;
+  margin: 0;
+  pointer-events: none;
 }
 .mc-slider {
   position: relative;
@@ -574,6 +576,11 @@ noscript {
   .menu-panel {
     left: 60px;
     width: 200px;
+  }
+  .asset-notice {
+    top: 38px;
+    font-size: 5px;
+    line-height: 8px;
   }
   .mc-button::after {
     content: '';

@@ -83,7 +83,11 @@ See [reference measurements](docs/references/java-26.3.md),
 local asset extraction with Python, Pillow, fontTools, and Brotli. It reads the
 game installation and writes only into this project.
 
-This is an unofficial local prototype. Original game assets and music are not
-owned by this project. Review their redistribution and Minecraft's usage rules
-before publishing. The public `MassiveMassimo/book-n-quill` repository has been
-created. The app has not yet been pushed or deployed.
+This is an unofficial Minecraft fan project. Original game assets and music are
+not owned by this project. The owner authorized bundling them for the initial
+public release, with publication terms still pending review. See
+[asset notices](ASSET_NOTICES.md).
+
+NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.
+
+The public repository is [MassiveMassimo/book-n-quill](https://github.com/MassiveMassimo/book-n-quill).
