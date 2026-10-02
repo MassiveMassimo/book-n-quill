@@ -354,9 +354,9 @@ test('native editing preserves Unicode, selection, undo, and composition commits
     exact: true,
   });
   await editor.pressSequentially('note');
-  await editor.press('Meta+z');
+  await editor.press('ControlOrMeta+z');
   await expect(editor).toHaveValue('');
-  await editor.press('Meta+Shift+z');
+  await editor.press('ControlOrMeta+Shift+z');
   await expect(editor).toHaveValue('note');
   await editor.fill('Café 日本語 🙂');
   await editor.evaluate((field) => {
@@ -383,7 +383,7 @@ test('native editing preserves Unicode, selection, undo, and composition commits
   );
   await page.reload();
   await expect(editor).toHaveValue('Café 日本語 🙂\n한글');
-  await editor.press('Meta+a');
+  await editor.press('ControlOrMeta+a');
   expect(
     await editor.evaluate((field) => {
       if (!(field instanceof HTMLTextAreaElement))
